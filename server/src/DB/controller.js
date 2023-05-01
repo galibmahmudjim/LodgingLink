@@ -1,33 +1,60 @@
 const pool = require("../db");
 const queries = require("./query");
+const jwt = require("jsonwebtoken");
+
+const SECRET_KEY = "Secret key";
+
 
 const getUser = (req,res)=>{
-      console.log("GetUser");
-      pool.query(queries.getUser,(error,results)=>{
-            res.status(200).json(results.rows);
+      console.log("Getting User Info: " + req.body['UserID']);
+      const UserID = req.body['UserID'];
+      pool.query(queries.getUser,[UserID],(error,results)=>{
+            if (results.rows.length != 0) {
+                  res.status(200).json(results.rows[0]);
+            }
+            else {
+                  res.status(201);
+            }
       });
 };
 
 const loginAuth = (req, res) => {
-      const {UserID,Password} = req.body;
-      console.log(UserID);
+      const { UserID, Password } = req.body;
+      const User = {
+            'UserID': UserID,
+            'Password': Password
+      };
+
+      console.log("Login Auth: " + UserID + " " + Password);
+      
+
       pool.query(queries.checkEmail, [UserID], (error, results) => {
             if (results.rows.length) {
                   pool.query(queries.getPassword, [UserID], (error, results) => {
                         if (error) throw error;
-                        if (results.rows[0].Password == Password)
-                        {
-                              res.status(200).send("Login Successful");
+                        if (results.rows[0].Password == Password) {
+                              jwt.sign({ User }, SECRET_KEY, { expiresIn: "7d" }, (err, token) => {
+                                    res.status(200).json(
+                                          {
+                                                "Message": "Login Successful",
+                                                token
+                                          }
+                                    )
+                              });
                         }
                         else {
-                              res.status(200).send("Incorrect Password");     
-                        }
+                              res.status(201).json({ "Message": "Incorrect Password" });
+                        };
                   });
             }
             else {
-                  res.status(200).send("UserID not found");
-            }
+                  res.status(201).json({ "Message": "UserID not found"});
+            };
       });
+
+      
+
+
 }
 
 const addUser = (req,res)=>{
@@ -45,6 +72,28 @@ const addUser = (req,res)=>{
       });
       
 }
+
+const verifyToken = (req, res) => {
+      const token = req.body['token'];
+      if (typeof token !== "undefined") {
+            jwt.verify(token, SECRET_KEY, (err, authdata) => {
+                  if (err) {
+                        res.status(201);
+                        console.log("Invalid token error "+token);
+                  }
+                  else {
+                        res.status(200).json({
+                              authdata
+                        });
+                  }
+            })
+      }     
+      else {
+            res.status(201);
+            console.log("Invalid token"+token);
+      }
+}
+
 
 const deleteUser = (req,res)=>{
       const UserID = req.params.UserID;
@@ -67,5 +116,6 @@ module.exports = {
       getPassword,
       addUser,
       deleteUser,
-      loginAuth
+      loginAuth,
+      verifyToken,
 };

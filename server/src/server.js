@@ -7,7 +7,7 @@ app.use(express.json());
 const port = 6969;
 
 
-app.use("/login",dbRoutes);
+app.use("/",dbRoutes);
 app.listen(port,function(){
       console.log("app listen at port "+ port);
 })

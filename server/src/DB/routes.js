@@ -5,10 +5,10 @@ const controller = require("./controller");
 
 const router = Router();
 
-router.get("/", controller.getUser);
-router.post("/",controller.addUser);
+router.post("/getuser", controller.getUser);
+router.post("/adduser",controller.addUser);
 router.delete("/:UserID",controller.deleteUser);
 router.get("/:id", controller.getPassword);
-router.post("/loginauth", controller.loginAuth);
-
+router.post("/login", controller.loginAuth);
+router.post("/login/verifyAuth", controller.verifyToken);
 module.exports = router;

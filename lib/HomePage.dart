@@ -1,4 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lodginglink/Profile/User.dart';
+import 'package:lodginglink/Utils/sharedPref.dart';
+import 'package:lodginglink/resetPassword.dart';
 import 'package:lodginglink/restApi/rest.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,13 +16,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _obscureText = true;
+  late User user;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final homepagePasswordKey = GlobalKey<FormState>();
   final homepageEmailKey = GlobalKey<FormState>();
   final formkey = GlobalKey<FormState>();
-  final String password = "ds";
+  String? token = "";
+  @override
+  void initState() {
+    super.initState();
+    initToken();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +45,8 @@ class _HomePageState extends State<HomePage> {
           children: [
             Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.1),
+              padding:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0),
               child: Form(
                 key: formkey,
                 child: Column(
@@ -42,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     homePageLogo(),
                     loginEmailTextformfield(),
-                    loginPasswordTextfirmfield(),
+                    loginPasswordTextformfield(),
                     loginbutton()
                   ],
                 ),
@@ -54,6 +66,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+//!home page logo
   Center homePageLogo() {
     return Center(
       child: Image.asset(
@@ -65,6 +78,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+//!email login text form
   Padding loginEmailTextformfield() {
     return Padding(
       padding: EdgeInsets.only(
@@ -101,7 +115,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Padding loginPasswordTextfirmfield() {
+//!password login text form
+  Padding loginPasswordTextformfield() {
     return Padding(
       padding: EdgeInsets.only(
           left: MediaQuery.of(context).size.width * 0.5 - 200.0,
@@ -148,6 +163,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+//!login button
   Padding loginbutton() {
     return Padding(
       padding: EdgeInsets.only(
@@ -168,11 +184,65 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void loginAuth(String text, String text2) {
+//! login success toast
+  void loginSuccessfulToast(String stat) {
+    Fluttertoast.showToast(
+      msg: stat,
+      gravity: ToastGravity.TOP,
+      fontSize: 40,
+      webPosition: "center",
+      webBgColor: "linear-gradient(to right, #ABB900, #ABB900)",
+    );
+  }
+
+//!error login toast
+  void errorToast(String stat) {
+    Fluttertoast.showToast(
+      msg: stat,
+      gravity: ToastGravity.TOP,
+      fontSize: 40,
+      webPosition: "center",
+      webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
+    );
+  }
+
+//!login auth
+  void loginAuth(String text, String text2) async {
     if (formkey.currentState!.validate()) {
-      Rest rest = Rest();
-      rest.loginAPI(text, text2);
-      
+      var response = await Rest.loginAPI(text, text2);
+      dynamic data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        user = User(text);
+        user.initialize();
+        loginSuccessful(data);
+      } else {
+        errorToast(data["Message"]);
+      }
+    }
+  }
+
+//!successfull login
+  void loginSuccessful(dynamic data) async {
+    sharedPref.setString(data['token']);
+    loginSuccessfulToast(data['Message']);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const resetPassword()));
+        Navigator.pop(context);
+  }
+
+//!inital login token
+  Future<void> initToken() async {
+    token = await sharedPref.getString();
+    var response = await Rest.tokenProfile(token);
+    if (response!.statusCode == 200) {
+      var profile = await jsonDecode(response.body);
+      user = User(profile['authdata']['User']['UserID']);
+      await user.initialize();
+      if (user.Status == "pass_init") {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const resetPassword()));
+             Navigator.pop(context);
+      }
     }
   }
 }
