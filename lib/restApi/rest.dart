@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class Rest {
   static Future<http.Response>? getUsers(String? UserID) async {
-    final url = Uri.parse('http://192.168.0.102:6969/getuser');
+    final url = Uri.parse('http://192.168.192.204:6969/getuser');
     final headers = {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
@@ -14,7 +14,7 @@ class Rest {
   }
 
   static Future<http.Response> loginAPI(String UserID, String Password) async {
-    final url = Uri.parse('http://192.168.0.102:6969/login');
+    final url = Uri.parse('http://192.168.192.204:6969/login');
     final headers = {
       "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
@@ -26,7 +26,7 @@ class Rest {
   }
 
   static Future<http.Response>? tokenProfile(String? token) async {
-    final url = Uri.parse('http://192.168.0.102:6969/login/verifyAuth');
+    final url = Uri.parse('http://192.168.192.204:6969/login/verifyAuth');
 
     final headers = {
       "Access-Control-Allow-Origin": "*",
@@ -41,7 +41,7 @@ class Rest {
 
   static Future<http.Response>? updatePassword(
       String? UserID, String? Password, String? Status) async {
-    final url = Uri.parse('http://192.168.0.102:6969/updatePassword');
+    final url = Uri.parse('http://192.168.192.204:6969/updatePassword');
 
     final headers = {
       "Access-Control-Allow-Origin": "*",
