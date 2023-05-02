@@ -38,4 +38,20 @@ class Rest {
     final response = await http.post(url, headers: headers, body: body);
     return response;
   }
+
+  static Future<http.Response>? updatePassword(
+      String? UserID, String? Password, String? Status) async {
+    final url = Uri.parse('http://192.168.0.102:6969/updatePassword');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    var body =
+        jsonEncode({"UserID": UserID, "Password": Password, "Status": Status});
+    final response = await http.post(url, headers: headers, body: body);
+    return response;
+  }
 }

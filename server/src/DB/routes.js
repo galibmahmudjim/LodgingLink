@@ -11,4 +11,5 @@ router.delete("/:UserID",controller.deleteUser);
 router.get("/:id", controller.getPassword);
 router.post("/login", controller.loginAuth);
 router.post("/login/verifyAuth", controller.verifyToken);
+router.post("/updatePassword", controller.updatePassword);
 module.exports = router;

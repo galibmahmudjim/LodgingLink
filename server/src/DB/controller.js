@@ -37,7 +37,8 @@ const loginAuth = (req, res) => {
                                     res.status(200).json(
                                           {
                                                 "Message": "Login Successful",
-                                                token
+                                                token,
+                                                results
                                           }
                                     )
                               });
@@ -111,6 +112,17 @@ const getPassword = (req, res) =>{
       });
 };
 
+const updatePassword = (req, res) => {
+      const { UserID, Password, Status } = req.body;
+      console.log(Password);
+      pool.query(queries.updatePassword, [Password, UserID, Status], (error, results) => {
+            if (error) { throw error; }
+            res.status(200).json({
+                  "Message": "Password reset successful",
+            });
+      })
+}
+
 module.exports = {
       getUser,
       getPassword,
@@ -118,4 +130,5 @@ module.exports = {
       deleteUser,
       loginAuth,
       verifyToken,
+      updatePassword,
 };

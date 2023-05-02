@@ -7,6 +7,8 @@ import 'package:lodginglink/Utils/sharedPref.dart';
 import 'package:lodginglink/resetPassword.dart';
 import 'package:lodginglink/restApi/rest.dart';
 
+import 'Receptionist/homePageReception.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -44,18 +46,31 @@ class _HomePageState extends State<HomePage> {
         body: Stack(
           children: [
             Container(
-              alignment: Alignment.center,
-              padding:
-                  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0),
               child: Form(
                 key: formkey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    homePageLogo(),
-                    loginEmailTextformfield(),
-                    loginPasswordTextformfield(),
-                    loginbutton()
+                    Container(
+                      margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.3,
+                        right: MediaQuery.of(context).size.width * 0.3,
+                      ),
+                      padding: const EdgeInsets.only(
+                          top: 0, bottom: 30, left: 50, right: 50),
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(99, 165, 172, 170),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ), //BorderRadius.all
+                      ),
+                      child: Column(children: [
+                        homePageLogo(),
+                        loginEmailTextformfield(),
+                        loginPasswordTextformfield(),
+                        loginbutton()
+                      ]),
+                    ),
                   ],
                 ),
               ),
@@ -81,10 +96,7 @@ class _HomePageState extends State<HomePage> {
 //!email login text form
   Padding loginEmailTextformfield() {
     return Padding(
-      padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.5 - 200.0,
-          right: MediaQuery.of(context).size.width * 0.5 - 200,
-          bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: TextFormField(
         key: homepageEmailKey,
         controller: emailController,
@@ -118,10 +130,7 @@ class _HomePageState extends State<HomePage> {
 //!password login text form
   Padding loginPasswordTextformfield() {
     return Padding(
-      padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.5 - 200.0,
-          right: MediaQuery.of(context).size.width * 0.5 - 200,
-          bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: TextFormField(
         keyboardType: TextInputType.visiblePassword,
         controller: passwordController,
@@ -166,10 +175,7 @@ class _HomePageState extends State<HomePage> {
 //!login button
   Padding loginbutton() {
     return Padding(
-      padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.5 - 200.0,
-          right: MediaQuery.of(context).size.width * 0.5 - 200,
-          top: 20.0),
+      padding: const EdgeInsets.only(top: 20.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white38,
@@ -225,24 +231,25 @@ class _HomePageState extends State<HomePage> {
   void loginSuccessful(dynamic data) async {
     sharedPref.setString(data['token']);
     loginSuccessfulToast(data['Message']);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const resetPassword()));
-        Navigator.pop(context);
+    print(user.UserID);
+    if (user.Role == "Receptionist") {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => resetPassword(user: user)));
+    }
   }
 
 //!inital login token
   Future<void> initToken() async {
-    token = await sharedPref.getString();
-    var response = await Rest.tokenProfile(token);
-    if (response!.statusCode == 200) {
-      var profile = await jsonDecode(response.body);
-      user = User(profile['authdata']['User']['UserID']);
-      await user.initialize();
-      if (user.Status == "pass_init") {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const resetPassword()));
-             Navigator.pop(context);
-      }
+    User? user = await sharedPref.tokenUser();
+    print(user!.Status);
+    if (user.Status == "pass_init") {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => resetPassword(user: user)));
+    } else if (user.Role == "Receptionist") {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => homePageReception(user: user)));
     }
   }
 }
