@@ -173,6 +173,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  graphs:
+    dependency: transitive
+    description:
+      name: graphs
+      sha256: f9e130f3259f52d26f0cfc0e964513796dafed572fa52e45d2f8d6ca14db39b2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
+  hover_effect:
+    dependency: "direct main"
+    description:
+      name: hover_effect
+      sha256: cb5666a5be711e7c3a69dead7e9e9aa163c6a7bf19fbad771c8f32da6cd68558
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.0"
   hovering:
     dependency: "direct main"
     description:
@@ -181,6 +197,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  hoverover:
+    dependency: "direct main"
+    description:
+      name: hoverover
+      sha256: "0b1ef6fb0ed08002dbe9a7238d26fd24ab0f23e7950da5ff908661e7f4d70643"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   http:
     dependency: "direct main"
     description:
@@ -349,6 +373,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  rive:
+    dependency: "direct main"
+    description:
+      name: rive
+      sha256: f7f365ee0e6cf0af99fb239bc3424370ca6ee2b9ad6fc879b1a79ba5e3b40770
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.4"
+  rive_common:
+    dependency: transitive
+    description:
+      name: rive_common
+      sha256: "7c4be235d75c34a0f257b4487c0cc314188aa2f9a6c177d34f02df53d7c25831"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   shared_preferences:
     dependency: "direct main"
     description:

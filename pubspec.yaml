@@ -44,6 +44,9 @@ dependencies:
   device_preview: ^1.1.0
   shared_preferences: ^2.1.0
   hovering: ^1.0.4
+  hoverover: ^0.1.1
+  hover_effect: ^0.6.0
+  rive: ^0.10.4
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,455 @@
+body header {
+    padding: 5px 0 5px 15px;
+    border-bottom: 1px solid #ececec
+}
+
+body header .search-block .header-search {
+    font-size: 16px;
+    line-height: 46px;
+    border-color: #ececec !important;
+    border-radius: 5px !important
+}
+
+body .search-images.active {
+    background-color: #f8f8f8
+}
+
+button.navbar-switch {
+    background-color: transparent
+}
+
+body button.navbar-switch {
+    padding: 0 15px 0 15px
+}
+
+body button.navbar-switch svg path {
+    fill: #000
+}
+
+#msearchbtn svg {
+    width: 20px;
+    height: auto
+}
+
+body picture.search-logo img {
+    width: 151px;
+    height: auto
+}
+
+body .navbar-brand {
+    width: 38px
+}
+
+@media screen and (min-width: 800px) {
+    body header {
+        padding: 5px 20px 10px
+    }
+
+    body header .search-block {
+        margin: 0;
+        padding: 0
+    }
+
+    body header .search-block .search {
+        margin: 0 !important;
+        border: 1px solid #2464c4;
+        padding: 0.25em 1.6563em
+    }
+
+    body header .search-block .header-search {
+        border-color: #2464c4 !important;
+        border-top-right-radius: 0px !important;
+        border-bottom-right-radius: 0px !important
+    }
+
+    body header .navbar-brand {
+        width: 100%;
+        text-align: left;
+        display: block;
+        padding: 0
+    }
+
+    body header .logo-block {
+        flex: 0 0 257px;
+        max-width: 257px;
+        padding-right: 14px
+    }
+
+    body header img.card-img-top {
+        height: auto
+    }
+
+    nav.navgation ul.navbar-nav .menu-item .front-login-button, nav.navgation ul.navbar-nav .menu-item .front-signup-button {
+        background-color: #fff;
+        color: #2464c4;
+        border-color: #cfd9e0;
+        font-size: 15px !important;
+        line-height: 32px;
+        padding: 0px;
+        min-width: 112px
+    }
+
+    nav.navgation ul.navbar-nav .menu-item .front-signup-button {
+        margin-left: 8px
+    }
+
+    nav.navgation ul.navbar-nav .menu-item .front-login-button {
+        background-color: #f3f5f6;
+        border-color: #f3f5f6
+    }
+
+    nav.navgation ul.navbar-nav .menu-item .front-login-button:hover, nav.navgation ul.navbar-nav .menu-item .front-signup-button:hover {
+        background-color: #2464c4;
+        color: #fff
+    }
+
+    body main .filter-row .tag-container .tag-slider {
+        overflow: hidden;
+        height: 45px
+    }
+}
+
+.latest-wp-container {
+    margin-top: 30px;
+    border-top: 1px solid #ececec;
+    padding-top: 24px
+}
+
+.latest-wp-container .section-title {
+    margin-bottom: 12px
+}
+
+.promo-content-container .promo-contents {
+    display: flex
+}
+
+.promo-content-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: #e3e9f0;
+    padding: 18px 24px;
+    border-radius: 14px;
+    margin: 0 15px
+}
+
+.promo-content-container ul {
+    flex: 0 0 100%;
+    max-width: 100%
+}
+
+.promo-content-container ul, .promo-content-container li {
+    list-style: none
+}
+
+.promo-content-container .promo-contents {
+    flex: 1 1 auto;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow-y: auto
+}
+
+.promo-content-container .promo-contents::-webkit-scrollbar {
+    width: 0;
+    background: transparent
+}
+
+.promo-content-container .promo-contents::-webkit-scrollbar-thumb {
+    background: transparent
+}
+
+.promo-content-container .promo-contents .promo-content {
+    padding: 0 10px 10px 0;
+    flex: 0 0 auto;
+    max-width: none
+}
+
+.promo-content-container .promo-contents .promo-content a {
+    display: block;
+    width: 100%;
+    height: 100%
+}
+
+.promo-content-container .promo-contents .promo-content a img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain
+}
+
+.promo-content-container .promo-contents .promo-content figure {
+    min-height: 0;
+    display: block;
+    height: 180px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px
+}
+
+.promo-content-container .promo-text .promo-domain {
+    font-size: 0px;
+    position: relative;
+    display: inline-block;
+    width: 98px;
+    height: 19px;
+    vertical-align: bottom
+}
+
+.promo-content-container.fastpng .promo-contents .promo-content figure {
+    background: url("data:image/jpg;base64,/9j/4QAWRXhpZgAATU0AKgAAAAgAAAAAAAD/7AARRHVja3kAAQAEAAAAUAAA/+EDL2h0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8APD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4wLWMwMDAgNzkuZGFiYWNiYiwgMjAyMS8wNC8xNC0wMDozOTo0NCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjUgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QkExMjMxRDQ3ODFBMTFFRDkzNjVBOTY1M0JDM0U2MEIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QkExMjMxRDU3ODFBMTFFRDkzNjVBOTY1M0JDM0U2MEIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCQTEyMzFEMjc4MUExMUVEOTM2NUE5NjUzQkMzRTYwQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCQTEyMzFEMzc4MUExMUVEOTM2NUE5NjUzQkMzRTYwQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv/uAA5BZG9iZQBkwAAAAAH/2wCEAAICAgICAgICAgIDAgICAwQDAgIDBAUEBAQEBAUGBQUFBQUFBgYHBwgHBwYJCQoKCQkMDAwMDAwMDAwMDAwMDAwBAwMDBQQFCQYGCQ0LCQsNDw4ODg4PDwwMDAwMDw8MDAwMDAwPDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIABcAGAMBEQACEQEDEQH/xABiAAEAAwEAAAAAAAAAAAAAAAAFAwQGCQEBAAAAAAAAAAAAAAAAAAAAABAAAQECDgMAAAAAAAAAAAAAABESAyExkQIigsLSUwQURAUVUhMlEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDsYA9wm6qWgHgCemyuI9lm3QK7/wCQzpqeoVv2woxEiM+QEHc5rDdSTrwGlAB5va17IAIH/9k=") repeat top left !important
+}
+
+.promo-content-container .promo-show-more {
+    margin-right: 10px;
+    display: block;
+    width: 100%;
+    text-align: right
+}
+
+.promo-content-container + .promo-content-container {
+    margin-top: 20px
+}
+
+.promo-content-container .promo-text a {
+    color: #0b57ac;
+    text-decoration: underline
+}
+
+.promo-content-container .promo-text {
+    font-size: 15px;
+    line-height: 1.2
+}
+
+.promo-content-container .promo-show-more-kw {
+    color: #0b57ac
+}
+
+.mrwallpaper .promo-contents .promo-content a img, .gifdb .promo-contents .promo-content a img {
+    object-fit: cover
+}
+
+.mrwallpaper .promo-contents .promo-content figure, .gifdb .promo-contents .promo-content figure {
+    padding: 0
+}
+
+body main figure .tag-bar {
+    pointer-events: none
+}
+
+body main figure .tag-bar .tag {
+    padding: 0
+}
+
+body .modal .modal-dialog.thankyou-popup {
+    margin: 0;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    max-width: none;
+    width: 100%
+}
+
+body .modal-content.thankyou-content .modal-header {
+    border-bottom: none;
+    padding: 42px 15px 0
+}
+
+body .modal-content.thankyou-content .modal-header .modal-title {
+    font-size: 30px;
+    line-height: 1.2
+}
+
+body .modal-content.thankyou-content .modal-body {
+    padding: 21px 15px 0
+}
+
+body .modal-content.thankyou-content .modal-footer {
+    border-top: none;
+    padding: 20px 15px 44px
+}
+
+.thankyou-content button.close {
+    position: absolute;
+    top: 21px;
+    right: 23px
+}
+
+.thankyou-content button.close span {
+    font-size: 0;
+    line-height: 0
+}
+
+.thankyou-content button.close span:before, .thankyou-content button.close span:after {
+    width: 2px;
+    height: 2px;
+    background: #020202;
+    content: "";
+    display: block;
+    top: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -1px;
+    margin-top: -1px
+}
+
+.thankyou-content button.close span {
+    display: block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    transform: rotate(45deg)
+}
+
+.thankyou-content button.close span:after {
+    width: 100%;
+    left: 0;
+    margin-left: 0
+}
+
+.thankyou-content button.close span:before {
+    height: 100%;
+    margin-top: 0;
+    top: 0
+}
+
+.modal-content.thankyou-content {
+    border-radius: 20px
+}
+
+.modal-content.thankyou-content .social-block {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e3e9ed;
+    margin-bottom: 22px
+}
+
+.modal-content.thankyou-content .social-block .share-content-titles {
+    margin-right: 20px;
+    font-size: 18px;
+    line-height: 1
+}
+
+.modal-content.thankyou-content .social-block .share-btn {
+    margin-right: 10px
+}
+
+body .modal-content.thankyou-content .modal-footer .content-share-unit .input-group {
+    flex-direction: column
+}
+
+body .modal-content.thankyou-content .modal-footer .content-share-unit {
+    width: 100%;
+    margin: 0
+}
+
+body .modal-content.thankyou-content .modal-footer .share-display-text {
+    display: block;
+    font-size: 16px;
+    border: none;
+    background-color: #f2f8fb;
+    color: #135174;
+    padding: 22px;
+    line-height: 1;
+    width: 100%
+}
+
+body .modal-content.thankyou-content .modal-footer {
+    flex-direction: column
+}
+
+body .modal-content.thankyou-content .modal-footer button.share-copy-btn {
+    margin-top: 8px;
+    padding: 12px 0;
+    font-size: 16px;
+    line-height: 1;
+    background-color: #2464c4;
+    border: none;
+    display: block;
+    width: 100%;
+    color: #fff
+}
+
+.modal-content.thankyou-content .social-block .share-btn.share-mo {
+    display: none
+}
+
+@media screen and (min-width: 501px) {
+    .promo-content-container .promo-contents .promo-content {
+        max-width: 75%
+    }
+
+    .promo-content-container .promo-show-more {
+        width: auto
+    }
+
+    body .modal-content.thankyou-content .modal-header {
+        padding: 42px 47px 0
+    }
+
+    body .modal-content.thankyou-content .modal-body {
+        padding: 21px 47px 0
+    }
+
+    body .modal-content.thankyou-content .modal-footer {
+        padding: 20px 47px 44px
+    }
+
+    body .modal .modal-dialog.thankyou-popup {
+        max-width: 541px
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .promo-content-container .promo-contents .promo-content {
+        max-width: 33.33%
+    }
+}
+
+body main .container .content-container .custom-kw-contents, body main .container .kw-container .custom-kw-contents {
+/*     column-gap: 0;
+    row-gap: 0;
+    margin-right: -10px; */
+    flex-wrap: wrap;
+/*     overflow: inherit */
+}
+
+/* body main .container .content-container .custom-kw-contents .content-card, body main .container .content-container .custom-kw-contents .card, body main .container .kw-container .custom-kw-contents .content-card, body main .container .kw-container .custom-kw-contents .card {
+    max-width: none;
+    flex: 1 1 auto;
+    padding: 0 10px 15px 0
+} */
+
+body main .container .content-container .custom-kw-contents .content-card img, body main .container .content-container .custom-kw-contents .card img, body main .container .kw-container .custom-kw-contents .content-card img, body main .container .kw-container .custom-kw-contents .card img {
+    height: 100%;
+/*     width: 100% */
+}
+
+body main .container .content-container .custom-kw-contents .content-card.horizontal figure, body main .container .content-container .custom-kw-contents .card figure, body main .container .kw-container .custom-kw-contents .content-card.horizontal figure, body main .container .kw-container .custom-kw-contents .card figure {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    max-width: none
+}
+
+body main .container .content-container .custom-kw-contents .content-card.horizontal figure a, body main .container .content-container .custom-kw-contents .content-card.horizontal figure a picture, body main .container .content-container .custom-kw-contents .card figure a, body main .container .content-container .custom-kw-contents .card figure a picture, body main .container .kw-container .custom-kw-contents .content-card.horizontal figure a, body main .container .kw-container .custom-kw-contents .content-card.horizontal figure a picture, body main .container .kw-container .custom-kw-contents .card figure a, body main .container .kw-container .custom-kw-contents .card figure a picture {
+    display: block;
+    width: 100%;
+    height: 100%
+}
+
+@media screen and (min-width: 800px) {
+    body main .container .kw-container .custom-kw-contents .content-card, body main .container .kw-container .custom-kw-contents .card {
+        height: 180px;
+        max-width: 50% !important;
+        margin-bottom: 0
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    body main .container .kw-container .custom-kw-contents .content-card, body main .container .kw-container .custom-kw-contents .card {
+        max-width: 33.33% !important
+    }
+}

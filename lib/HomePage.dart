@@ -6,6 +6,7 @@ import 'package:lodginglink/Profile/User.dart';
 import 'package:lodginglink/Utils/sharedPref.dart';
 import 'package:lodginglink/resetPassword.dart';
 import 'package:lodginglink/restApi/rest.dart';
+import 'package:rive/rive.dart';
 
 import 'Receptionist/homePageReception.dart';
 
@@ -231,11 +232,7 @@ class _HomePageState extends State<HomePage> {
   void loginSuccessful(dynamic data) async {
     sharedPref.setString(data['token']);
     loginSuccessfulToast(data['Message']);
-    print(user.UserID);
-    if (user.Role == "Receptionist") {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => resetPassword(user: user)));
-    }
+    await initToken();
   }
 
 //!inital login token

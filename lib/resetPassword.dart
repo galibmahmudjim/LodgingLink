@@ -62,25 +62,29 @@ class _resetPasswordState extends State<resetPassword> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       nameWelcomeFieldText(),
-                      Container(
-                          margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.3,
-                            right: MediaQuery.of(context).size.width * 0.3,
-                          ),
-                          padding: const EdgeInsets.only(
-                              top: 20, bottom: 50, left: 50, right: 50),
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(99, 165, 172, 170),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ), //BorderRadius.all
-                          ),
-                          child: Column(children: [
-                            homePageTitle(),
-                            passwordTextfiels(),
-                            verifypasswordTextfiels(),
-                            submitbutton(),
-                          ]))
+                      Card(
+                        margin: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.2),
+                        child: Container(
+                            margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.3,
+                              right: MediaQuery.of(context).size.width * 0.3,
+                            ),
+                            padding: const EdgeInsets.only(
+                                top: 20, bottom: 50, left: 50, right: 50),
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(99, 165, 172, 170),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ), //BorderRadius.all
+                            ),
+                            child: Column(children: [
+                              homePageTitle(),
+                              passwordTextfiels(),
+                              verifypasswordTextfiels(),
+                              submitbutton(),
+                            ])),
+                      )
                     ]),
               ),
             ),
@@ -236,32 +240,32 @@ class _resetPasswordState extends State<resetPassword> {
             ),
             focusColor: Colors.black45,
             border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black45, width: 2)),
+                borderSide: BorderSide(color: Colors.transparent, width: 2)),
             focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 2.0),
+              borderSide: BorderSide(color: Colors.transparent, width: 2.0),
             )),
       ),
     );
   }
 
 //!submit button
-  Padding submitbutton() {
+  submitbutton() {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
       child: ElevatedButton(
         focusNode: button1,
         style: ElevatedButton.styleFrom(
-          minimumSize: const Size(50, 50),
-          backgroundColor: const Color.fromARGB(159, 106, 118, 132),
+          backgroundColor: const Color.fromARGB(255, 191, 144, 144),
           textStyle: const TextStyle(
-              color: Color.fromARGB(255, 128, 177, 193),
+              color: Color.fromARGB(255, 0, 0, 0),
               fontSize: 25,
+              fontFamily: "Roboto",
               fontStyle: FontStyle.normal),
         ),
         onPressed: () {
           verifyassword(password1.text, password2.text);
         },
-        child: const Text('Reset Password'),
+        child: const Text('Submit'),
       ),
     );
   }

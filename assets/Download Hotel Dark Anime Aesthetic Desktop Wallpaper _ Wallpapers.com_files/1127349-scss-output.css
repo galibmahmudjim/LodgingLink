@@ -1,0 +1,62 @@
+/* xs - SMARTPHONE PORTRAIT STYLES */
+.latest-blog {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.latest-blog-item-list-top {
+  padding-bottom: 20px;
+}
+.latest-blog-item-list {
+  padding: 0px 2px 0px 2px;
+}
+.latest-blog-item-list-content-top {
+  padding: 0px 2px 0px 2px;
+  padding-bottom: 10px;
+}
+.latest-blog-title {
+  display: block;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding: 1rem;
+}
+.latest-blog-item-list-content {
+  list-style-type: none;
+  padding: 0;
+}
+.latest-blog-item-list-content img {
+  height: auto;
+}
+.latest-blog-item-list-content:first-child {
+  border-bottom: 1px solid #ececec;
+}
+.latest-blog-with-image {
+  list-style-type: none;
+  padding: 0;
+}
+.latest-blog-col {
+  max-width: 100%;
+}
+.latest-blog-row {
+  column-gap: 1rem;
+  row-gap: 1rem;
+  padding: 0 !important;
+  list-style-type: none;
+  margin: 0;
+}
+.latest-blog-new-div {
+  padding: 0px 2px 0px 2px;
+  border-top: 1px solid #ececec;
+}
+/* xl - DESKTOP STYLES */
+@media (min-width: 800px) {
+  .latest-blog {
+    flex-direction: row;
+  }
+  .latest-blog-col {
+    flex: 1 1;
+  }
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sourceRoot%22%3A%22%2F%22%2C%22sources%22%3A%5B%22(stdin)%22%2C%22wp-content%2Fcustom_codes%2F1127349-scss-mobile-p.scss%22%2C%22wp-content%2Fcustom_codes%2F1127349-scss-desktop.scss%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22AAAA%3BACAA%3BAAAA%3BAAAA%3BAAAA%3BAAAA%3BAAAA%3BAAAA%3BAASA%3BAAAA%3BAAAA%3BAAKA%3BAAAA%3BAAAA%3BAAIA%3BAAAA%3BAAAA%3BAAAA%3BAAMA%3BAAAA%3BAAAA%3BAAAA%3BAAAA%3BAAAA%3BAAOA%3BAAAA%3BAAAA%3BAAAA%3BAAGC%3BAAAA%3BAAAA%3BAAID%3BAAAA%3BAAAA%3BAAIA%3BAAAA%3BAAAA%3BAAAA%3BAAKA%3BAAAA%3BAAAA%3BAAIA%3BAAAA%3BAAAA%3BAAAA%3BAAAA%3BAAAA%3BAAAA%3BAAUA%3BAAAA%3BAAAA%3BAAAA%3BAD7DA%3BAAIA%3BAEJA%3BAAAA%3BAAAA%3BAAIA%3BAAAA%3BAAAA%3BAAAA%22%7D */
