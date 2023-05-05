@@ -47,6 +47,8 @@ dependencies:
   hoverover: ^0.1.1
   hover_effect: ^0.6.0
   rive: ^0.10.4
+  chewie: ^1.2.0
+  video_player_web: ^2.0.16
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lodginglink/Receptionist/homePageReception.dart';
 import 'package:lodginglink/restApi/rest.dart';
+import 'package:lodginglink/widget/videoControl.dart';
 
 import 'Profile/User.dart';
 
@@ -52,6 +53,7 @@ class _resetPasswordState extends State<resetPassword> {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
+            const backgroundVideo(),
             Container(
               alignment: Alignment.center,
               padding:
@@ -62,29 +64,24 @@ class _resetPasswordState extends State<resetPassword> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       nameWelcomeFieldText(),
-                      Card(
-                        margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.2),
-                        child: Container(
-                            margin: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width * 0.3,
-                              right: MediaQuery.of(context).size.width * 0.3,
-                            ),
-                            padding: const EdgeInsets.only(
-                                top: 20, bottom: 50, left: 50, right: 50),
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(99, 165, 172, 170),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ), //BorderRadius.all
-                            ),
-                            child: Column(children: [
-                              homePageTitle(),
-                              passwordTextfiels(),
-                              verifypasswordTextfiels(),
-                              submitbutton(),
-                            ])),
-                      )
+                      Container(
+                          margin: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.3,
+                            right: MediaQuery.of(context).size.width * 0.3,
+                          ),
+                          padding: const EdgeInsets.only(
+                              top: 20, bottom: 50, left: 50, right: 50),
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(147, 255, 255, 255),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(10)), //BorderRadius.all
+                          ),
+                          child: Column(children: [
+                            homePageTitle(),
+                            passwordTextfiels(),
+                            verifypasswordTextfiels(),
+                            submitbutton(),
+                          ]))
                     ]),
               ),
             ),
@@ -123,61 +120,6 @@ class _resetPasswordState extends State<resetPassword> {
 
   //!user initial cookies
 
-  passwordTextfiels() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: TextFormField(
-        focusNode: field1,
-        onFieldSubmitted: (value) =>
-            {FocusScope.of(context).requestFocus(field2)},
-        keyboardType: TextInputType.visiblePassword,
-        controller: password1,
-        obscureText: _obscureText1,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            FocusScope.of(context).requestFocus(field1);
-            return 'Please Enter Valid passrword';
-          } else if (value.length < 8) {
-            FocusScope.of(context).requestFocus(field1);
-            return 'Password must be at least 8 character.';
-          } else if (value == widget.user.Password) {
-            FocusScope.of(context).requestFocus(field1);
-            return 'Do not enter your previous Password';
-          }
-          return null;
-        },
-        style: const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black45,
-        ),
-        onChanged: (value) {},
-        decoration: InputDecoration(
-            errorStyle: const TextStyle(color: Color.fromARGB(255, 44, 3, 0)),
-            labelText: "Password",
-            labelStyle: const TextStyle(color: Colors.black45),
-            prefixIcon: const Icon(Icons.lock, color: Colors.black45),
-            suffixIcon: IconButton(
-              icon:
-                  Icon(_obscureText1 ? Icons.visibility_off : Icons.visibility),
-              color: Colors.black12,
-              onPressed: () {
-                setState(() {
-                  _obscureText1 = !_obscureText1;
-                });
-              },
-            ),
-            focusColor: Colors.black45,
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black45, width: 2)),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 2.0),
-            )),
-      ),
-    );
-  }
-
   homePageTitle() {
     return const Center(
         child: Padding(
@@ -195,57 +137,163 @@ class _resetPasswordState extends State<resetPassword> {
     ));
   }
 
-  verifypasswordTextfiels() {
+  passwordTextfiels() {
+    bool isHovering = false;
+    Color bgcolor = const Color.fromARGB(84, 255, 255, 255);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10, top: 20),
-      child: TextFormField(
-        focusNode: field2,
-        onFieldSubmitted: (value) =>
-            {FocusScope.of(context).requestFocus(button1)},
-        cursorColor: const Color.fromARGB(255, 0, 0, 0),
-        keyboardType: TextInputType.visiblePassword,
-        controller: password2,
-        obscureText: _obscureText2,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            FocusScope.of(context).requestFocus(field1);
-            return 'Please enter same passrword';
-          }
-          return null;
+      padding: const EdgeInsets.only(bottom: 10),
+      child: MouseRegion(
+        onEnter: (PointerEvent details) {
+          setState(() {
+            isHovering = true;
+            bgcolor = Colors.white;
+            field1.requestFocus();
+          });
         },
-        style: const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black45,
-        ),
-        onChanged: (value) {
-          passveriferror = "";
+        onExit: (PointerEvent details) {
+          setState(() {
+            isHovering = false;
+            bgcolor = const Color.fromARGB(84, 255, 255, 255);
+            field1.unfocus();
+          });
         },
-        decoration: InputDecoration(
-            errorText: passveriferror,
-            errorStyle: const TextStyle(color: Color.fromARGB(255, 44, 3, 0)),
-            labelText: "Confirm Password",
-            labelStyle: const TextStyle(color: Colors.black45),
-            prefixIcon: const Icon(Icons.lock, color: Colors.black45),
-            suffixIcon: IconButton(
-              icon:
-                  Icon(_obscureText1 ? Icons.visibility_off : Icons.visibility),
-              color: Colors.black12,
-              onPressed: () {
-                setState(() {
-                  _obscureText2 = !_obscureText2;
-                });
-              },
+        child: Card(
+          elevation: isHovering ? 1000 : 0,
+          color: Colors.transparent,
+          child: TextFormField(
+            focusNode: field1,
+            onFieldSubmitted: (value) =>
+                {FocusScope.of(context).requestFocus(field2)},
+            keyboardType: TextInputType.visiblePassword,
+            controller: password1,
+            obscureText: _obscureText1,
+            validator: (value) {
+              return validatePass(value);
+            },
+            style: const TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(194, 0, 0, 0),
             ),
-            focusColor: Colors.black45,
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent, width: 2)),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent, width: 2.0),
-            )),
+            onChanged: (value) {},
+            decoration: InputDecoration(
+                fillColor: bgcolor,
+                filled: true,
+                contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
+                errorStyle: TextStyle(color: Colors.red[900]),
+                labelText: "Password",
+                labelStyle: const TextStyle(
+                  color: Colors.black45,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(5.5),
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                  ),
+                ),
+                prefixIcon: const Icon(Icons.lock, color: Colors.black45),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                      _obscureText1 ? Icons.visibility_off : Icons.visibility),
+                  color: Colors.black12,
+                  onPressed: () {
+                    setState(() {
+                      _obscureText1 = !_obscureText1;
+                    });
+                  },
+                ),
+                border: InputBorder.none),
+          ),
+        ),
       ),
     );
+  }
+
+  verifypasswordTextfiels() {
+    bool isHovering = false;
+    Color bgcolor = const Color.fromARGB(84, 255, 255, 255);
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: MouseRegion(
+          onEnter: (PointerEvent details) {
+            setState(() {
+              isHovering = true;
+              bgcolor = Colors.white;
+              field2.requestFocus();
+            });
+          },
+          onExit: (PointerEvent details) {
+            setState(() {
+              isHovering = false;
+              bgcolor = const Color.fromARGB(84, 255, 255, 255);
+              field2.unfocus();
+            });
+          },
+          child: Card(
+            elevation: isHovering ? 10 : 0,
+            color: Colors.transparent,
+            child: TextFormField(
+              focusNode: field2,
+              onFieldSubmitted: (value) =>
+                  {FocusScope.of(context).requestFocus(button1)},
+              cursorColor: const Color.fromARGB(255, 0, 0, 0),
+              keyboardType: TextInputType.visiblePassword,
+              controller: password2,
+              obscureText: _obscureText2,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  FocusScope.of(context).requestFocus(field1);
+                  return 'Please enter same passrword';
+                } else if (password1.text != value) {
+                  return 'Please enter same passrword';
+                }
+                return null;
+              },
+              style: const TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(194, 0, 0, 0),
+              ),
+              onChanged: (value) {},
+              decoration: InputDecoration(
+                  fillColor: bgcolor,
+                  filled: true,
+                  contentPadding: const EdgeInsets.only(top: 10, bottom: 20),
+                  errorStyle: TextStyle(color: Colors.red[900]),
+                  labelText: "Confirm Password",
+                  labelStyle: const TextStyle(
+                    color: Colors.black45,
+                  ),
+                  prefixIcon: const Icon(Icons.lock, color: Colors.black45),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(5.5),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(_obscureText2
+                        ? Icons.visibility_off
+                        : Icons.visibility),
+                    color: Colors.black12,
+                    onPressed: () {
+                      setState(() {
+                        _obscureText2 = !_obscureText2;
+                      });
+                    },
+                  ),
+                  border: InputBorder.none),
+            ),
+          ),
+        ));
   }
 
 //!submit button
@@ -274,7 +322,6 @@ class _resetPasswordState extends State<resetPassword> {
     if (formkey.currentState!.validate()) {
       if (password1.text != password2.text) {
         setState(() {
-          passveriferror = "Not same password";
           FocusScope.of(context).requestFocus(field1);
         });
       } else {
@@ -297,6 +344,21 @@ class _resetPasswordState extends State<resetPassword> {
     } else {
       errorToast(jsonDecode(response.body)["Message"]);
     }
+  }
+
+//!validate
+  validatePass(String? value) {
+    if (value == null || value.isEmpty) {
+      FocusScope.of(context).requestFocus(field1);
+      return 'Please Enter Valid passrword';
+    } else if (value.length < 8) {
+      FocusScope.of(context).requestFocus(field1);
+      return 'Password must be at least 8 character.';
+    } else if (value == widget.user.Password) {
+      FocusScope.of(context).requestFocus(field1);
+      return 'Do not enter your previous Password';
+    }
+    return null;
   }
 }
 

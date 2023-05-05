@@ -6,7 +6,7 @@ import 'package:lodginglink/Profile/User.dart';
 import 'package:lodginglink/Utils/sharedPref.dart';
 import 'package:lodginglink/resetPassword.dart';
 import 'package:lodginglink/restApi/rest.dart';
-import 'package:rive/rive.dart';
+import 'package:lodginglink/widget/videoControl.dart';
 
 import 'Receptionist/homePageReception.dart';
 
@@ -39,13 +39,14 @@ class _HomePageState extends State<HomePage> {
       height: 200,
       width: double.infinity,
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("assets/homeBackground.jpg"), fit: BoxFit.cover),
-      ),
+          // image: DecorationImage(
+          //     image: AssetImage("assets/homeBackground.jpg"), fit: BoxFit.cover),
+          ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
+            const backgroundVideo(),
             Container(
               child: Form(
                 key: formkey,
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(
                           top: 0, bottom: 30, left: 50, right: 50),
                       decoration: const BoxDecoration(
-                        color: Color.fromARGB(99, 165, 172, 170),
+                        color: Color.fromARGB(147, 255, 255, 255),
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ), //BorderRadius.all
