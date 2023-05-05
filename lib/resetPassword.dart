@@ -255,7 +255,7 @@ class _resetPasswordState extends State<resetPassword> {
               },
               style: const TextStyle(
                 fontFamily: 'Roboto',
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(194, 0, 0, 0),
               ),

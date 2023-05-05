@@ -21,6 +21,9 @@ class _HomePageState extends State<HomePage> {
   bool _obscureText = true;
   late User user;
 
+  FocusNode field1 = FocusNode();
+  FocusNode field2 = FocusNode();
+  FocusNode button1 = FocusNode();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final homepagePasswordKey = GlobalKey<FormState>();
@@ -97,81 +100,152 @@ class _HomePageState extends State<HomePage> {
 
 //!email login text form
   Padding loginEmailTextformfield() {
+    bool isHovering = false;
+    Color bgcolor = const Color.fromARGB(84, 255, 255, 255);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: TextFormField(
-        key: homepageEmailKey,
-        controller: emailController,
-        keyboardType: TextInputType.emailAddress,
-        style: const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Enter valid Email';
-          }
-          return null;
-        },
-        decoration: const InputDecoration(
-            labelText: "Enter USERID",
-            labelStyle: TextStyle(color: Colors.black45),
-            prefixIcon: Icon(Icons.email, color: Colors.black45),
-            focusColor: Colors.black45,
-            border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black45, width: 2)),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black45, width: 2.0),
-            )),
-      ),
-    );
+        padding: const EdgeInsets.only(bottom: 10),
+        child: MouseRegion(
+            onEnter: (PointerEvent details) {
+              setState(() {
+                isHovering = true;
+                bgcolor = Colors.white;
+                field1.requestFocus();
+              });
+            },
+            onExit: (PointerEvent details) {
+              setState(() {
+                isHovering = false;
+                bgcolor = const Color.fromARGB(84, 255, 255, 255);
+                field1.unfocus();
+              });
+            },
+            child: Card(
+              elevation: isHovering ? 1000 : 0,
+              color: Colors.transparent,
+              child: TextFormField(
+                focusNode: field1,
+                onFieldSubmitted: (value) =>
+                    {FocusScope.of(context).requestFocus(field2)},
+                key: homepageEmailKey,
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Enter valid Email';
+                  }
+                  return null;
+                },
+                style: const TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(194, 0, 0, 0),
+                ),
+                onChanged: (value) {},
+                decoration: InputDecoration(
+                  fillColor: bgcolor,
+                  filled: true,
+                  contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
+                  errorStyle: TextStyle(color: Colors.red[900]),
+                  labelText: "Enter UserID",
+                  labelStyle: const TextStyle(
+                    color: Colors.black45,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(5.5),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  prefixIcon: const Icon(Icons.email, color: Colors.black45),
+                  focusColor: Colors.black45,
+                ),
+              ),
+            )));
   }
 
 //!password login text form
   Padding loginPasswordTextformfield() {
+    bool isHovering = false;
+    Color bgcolor = const Color.fromARGB(84, 255, 255, 255);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: TextFormField(
-        keyboardType: TextInputType.visiblePassword,
-        controller: passwordController,
-        obscureText: _obscureText,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please Valid password';
-          }
-          return null;
-        },
-        style: const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black45,
-        ),
-        onChanged: (value) {},
-        decoration: InputDecoration(
-            labelText: "Password",
-            labelStyle: const TextStyle(color: Colors.black45),
-            prefixIcon: const Icon(Icons.lock, color: Colors.black45),
-            suffixIcon: IconButton(
-              icon:
-                  Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
-              color: Colors.black12,
-              onPressed: () {
-                setState(() {
-                  _obscureText = !_obscureText;
-                });
+        padding: const EdgeInsets.only(bottom: 10),
+        child: MouseRegion(
+          onEnter: (PointerEvent details) {
+            setState(() {
+              isHovering = true;
+              bgcolor = Colors.white;
+              field2.requestFocus();
+            });
+          },
+          onExit: (PointerEvent details) {
+            setState(() {
+              isHovering = false;
+              bgcolor = const Color.fromARGB(84, 255, 255, 255);
+              field2.unfocus();
+            });
+          },
+          child: Card(
+            elevation: isHovering ? 10 : 0,
+            color: Colors.transparent,
+            child: TextFormField(
+              focusNode: field2,
+              onFieldSubmitted: (value) =>
+                  {FocusScope.of(context).requestFocus(button1)},
+              cursorColor: const Color.fromARGB(255, 0, 0, 0),
+              keyboardType: TextInputType.visiblePassword,
+              controller: passwordController,
+              obscureText: _obscureText,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  FocusScope.of(context).requestFocus(field1);
+                  return 'Password required';
+                }
+                return null;
               },
+              style: const TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(194, 0, 0, 0),
+              ),
+              onChanged: (value) {},
+              decoration: InputDecoration(
+                  fillColor: bgcolor,
+                  filled: true,
+                  contentPadding: const EdgeInsets.only(top: 10, bottom: 20),
+                  errorStyle: TextStyle(color: Colors.red[900]),
+                  labelText: "Password",
+                  labelStyle: const TextStyle(
+                    color: Colors.black45,
+                  ),
+                  prefixIcon: const Icon(Icons.lock, color: Colors.black45),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(5.5),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                        _obscureText ? Icons.visibility_off : Icons.visibility),
+                    color: Colors.black12,
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
+                  border: InputBorder.none),
             ),
-            focusColor: Colors.black45,
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black45, width: 2)),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 2.0),
-            )),
-      ),
-    );
+          ),
+        ));
   }
 
 //!login button
@@ -179,6 +253,7 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
       child: ElevatedButton(
+        focusNode: button1,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white38,
           textStyle: const TextStyle(
@@ -251,3 +326,4 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
+
