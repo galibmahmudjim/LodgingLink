@@ -314,9 +314,6 @@ class _HomePageState extends State<HomePage> {
           field2.requestFocus();
         }
       }
-      setState(() {
-        print(isLoading);
-      });
     }
   }
 
