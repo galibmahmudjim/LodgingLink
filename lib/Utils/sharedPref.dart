@@ -18,12 +18,15 @@ class sharedPref {
 
   static Future<User?> tokenUser() async {
     var token = await getString();
+    if (token == null) return null;
     var response = await Rest.tokenProfile(token);
     User? user;
     if (response!.statusCode == 200) {
       var profile = await jsonDecode(response.body);
       user = User(profile['authdata']['User']['UserID']);
       await user.initialize();
+    } else {
+      return null;
     }
     return user;
   }

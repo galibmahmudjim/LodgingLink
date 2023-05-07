@@ -30,66 +30,16 @@ class _topBarState extends State<topBar> {
     return Container(
         color: const Color.fromARGB(143, 110, 102, 102).withOpacity(0.5),
         child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 15),
-            child: Expanded(
+          padding: const EdgeInsets.only(left: 20, right: 15),
+          child: Row(children: [
+            Expanded(
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Container(
-                  color: Colors.transparent,
-                  child: Image.asset("assets/logo/logo2.png"),
-                  height: 70,
-                  width: 70,
-                ),
-                const Text(
-                  'LodgningLink',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    fontSize: 26,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 3,
-                  ),
-                ),
+                AppBarLogo(),
+                AppBarName(),
                 SizedBox(
                   width: screenSize.width / 4,
                 ),
-                InkWell(
-                  onTap: () {},
-                  onHover: (value) {
-                    setState(() {
-                      _isHovering[0] = value;
-                    });
-                  },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Home',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 3,
-                          color: _isHovering[0]
-                              ? const Color.fromARGB(255, 0, 0, 0)
-                              : Color.fromARGB(133, 255, 255, 255),
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      // For showing an underline on hover
-                      Visibility(
-                        maintainAnimation: true,
-                        maintainState: true,
-                        maintainSize: true,
-                        visible: _isHovering[0],
-                        child: Container(
-                          height: 2,
-                          width: 20,
-                          color: Colors.white,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                AppBarHome(),
                 SizedBox(
                   width: screenSize.width / 4,
                 ),
@@ -99,7 +49,9 @@ class _topBarState extends State<topBar> {
                 ),
                 logOut(),
               ]),
-            )));
+            )
+          ]),
+        ));
 
     //);
   }
@@ -124,7 +76,7 @@ class _topBarState extends State<topBar> {
               letterSpacing: 3,
               color: _isHovering[1]
                   ? const Color.fromARGB(255, 0, 0, 0)
-                  : Color.fromARGB(133, 255, 255, 255),
+                  : const Color.fromARGB(133, 255, 255, 255),
             ),
           ),
           const SizedBox(height: 5),
@@ -165,7 +117,7 @@ class _topBarState extends State<topBar> {
               letterSpacing: 3,
               color: _isHovering[2]
                   ? const Color.fromARGB(255, 0, 0, 0)
-                  : Color.fromARGB(133, 255, 255, 255),
+                  : const Color.fromARGB(133, 255, 255, 255),
             ),
           ),
           const SizedBox(height: 5),
@@ -186,4 +138,66 @@ class _topBarState extends State<topBar> {
     );
   }
 
+  AppBarLogo() {
+    return Container(
+      color: Colors.transparent,
+      height: 70,
+      width: 70,
+      child: Image.asset("assets/logo/logo2.png"),
+    );
+  }
+
+  AppBarName() {
+    return const Text(
+      'LodgningLink',
+      style: TextStyle(
+        color: Color.fromARGB(255, 0, 0, 0),
+        fontSize: 26,
+        fontFamily: 'Raleway',
+        fontWeight: FontWeight.w900,
+        letterSpacing: 3,
+      ),
+    );
+  }
+
+  AppBarHome() {
+    return InkWell(
+      onTap: () {},
+      onHover: (value) {
+        setState(() {
+          _isHovering[0] = value;
+        });
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Home',
+            style: TextStyle(
+              fontSize: 24,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.w900,
+              letterSpacing: 3,
+              color: _isHovering[0]
+                  ? const Color.fromARGB(255, 0, 0, 0)
+                  : const Color.fromARGB(133, 255, 255, 255),
+            ),
+          ),
+          const SizedBox(height: 5),
+          // For showing an underline on hover
+          Visibility(
+            maintainAnimation: true,
+            maintainState: true,
+            maintainSize: true,
+            visible: _isHovering[0],
+            child: Container(
+              height: 2,
+              width: 20,
+              color: Colors.white,
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

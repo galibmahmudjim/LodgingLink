@@ -37,6 +37,7 @@ class Rest {
 
     var body = jsonEncode({"token": token});
     final response = await http.post(url, headers: headers, body: body);
+    print(response.statusCode);
     return response;
   }
 
