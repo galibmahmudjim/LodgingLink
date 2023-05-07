@@ -49,6 +49,8 @@ dependencies:
   rive: ^0.10.4
   chewie: ^1.2.0
   video_player_web: ^2.0.16
+  flutter_shimmer: ^2.1.2
+  shimmer_animation: ^2.1.0+1
 
 dev_dependencies:
   flutter_test:

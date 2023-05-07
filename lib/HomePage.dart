@@ -6,6 +6,8 @@ import 'package:lodginglink/Profile/User.dart';
 import 'package:lodginglink/Utils/sharedPref.dart';
 import 'package:lodginglink/resetPassword.dart';
 import 'package:lodginglink/restApi/rest.dart';
+import 'package:lodginglink/widget/loading.dart';
+import 'package:lodginglink/widget/shimmer.dart';
 import 'package:lodginglink/widget/videoControl.dart';
 
 import 'Receptionist/homePageReception.dart';
@@ -30,9 +32,13 @@ class _HomePageState extends State<HomePage> {
   final homepageEmailKey = GlobalKey<FormState>();
   final formkey = GlobalKey<FormState>();
   String? token = "";
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
+    setState(() {
+      isLoading = true;
+    });
     initToken();
   }
 
@@ -45,7 +51,7 @@ class _HomePageState extends State<HomePage> {
           // image: DecorationImage(
           //     image: AssetImage("assets/homeBackground.jpg"), fit: BoxFit.cover),
           ),
-      child: Scaffold(
+      child: isLoading? const  loading(): Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
@@ -201,7 +207,7 @@ class _HomePageState extends State<HomePage> {
               obscureText: _obscureText,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  FocusScope.of(context).requestFocus(field1);
+                  FocusScope.of(context).requestFocus(button1);
                   return 'Password required';
                 }
                 return null;
@@ -300,6 +306,12 @@ class _HomePageState extends State<HomePage> {
         loginSuccessful(data);
       } else {
         errorToast(data["Message"]);
+        if(data["Message"]=="UserID not Found"){
+          field1.requestFocus();
+        }
+        else{
+          field2.requestFocus();
+        }
       }
     }
   }
@@ -315,6 +327,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> initToken() async {
     User? user = await sharedPref.tokenUser();
     print(user!.Status);
+    isLoading = true;
     if (user.Status == "pass_init") {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => resetPassword(user: user)));

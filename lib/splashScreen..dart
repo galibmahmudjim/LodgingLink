@@ -43,4 +43,5 @@ class _splashScreenState extends State<splashScreen> {
       backgroundColor: Colors.transparent,
     );
   }
+
 }
