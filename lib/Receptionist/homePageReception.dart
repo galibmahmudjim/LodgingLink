@@ -60,7 +60,8 @@ class _homePageReceptionState extends State<homePageReception> {
         child: Card(
             elevation: 4,
             color: const Color.fromARGB(163, 255, 255, 255),
-            child: appbarcontent(screenSize: screenSize)),
+            child: appbarcontent(
+                user: widget.user, context: context, screenSize: screenSize)),
       ),
     );
   }

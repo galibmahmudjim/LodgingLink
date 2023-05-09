@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:lodginglink/Receptionist/roomReception.dart';
+
+import '../Profile/User.dart';
 
 class appbarcontent extends StatefulWidget {
-  const appbarcontent({
-    Key? key,
-    required this.screenSize,
-  }) : super(key: key);
+  final BuildContext context;
+  final User user;
+  const appbarcontent(
+      {Key? key,
+      required this.screenSize,
+      required this.context,
+      required this.user})
+      : super(key: key);
 
   final Size screenSize;
 
@@ -35,7 +42,12 @@ class _appbarcontentState extends State<appbarcontent> {
             value ? _isHovering[i] = true : _isHovering[i] = false;
           });
         },
-        onTap: () {},
+        onTap: () {
+          if (i == 0) {
+            Navigator.push(widget.context,
+                MaterialPageRoute(builder: (context) => RoomReception(user: widget.user,)));
+          }
+        },
         child: Text(
           items[i],
           style: TextStyle(
