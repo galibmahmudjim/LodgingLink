@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:lodginglink/Receptionist/homePageReception.dart';
+import 'package:lodginglink/Utils/sharedPref.dart';
+import 'package:lodginglink/widget/loading.dart';
+
+import '../HomePage.dart';
+import '../Profile/User.dart';
 
 class topBar extends StatefulWidget implements PreferredSizeWidget {
-  const topBar({Key? key})
+  final User user;
+  final String screenName;
+  final void Function(bool) updateload;
+  final BuildContext context;
+  const topBar(
+      {Key? key,
+      required this.user,
+      required this.screenName,
+      required this.updateload,
+      required this.context})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -23,7 +38,6 @@ class _topBarState extends State<topBar> {
     false,
     false
   ];
-
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -37,7 +51,7 @@ class _topBarState extends State<topBar> {
                 AppBarLogo(),
                 AppBarName(),
                 SizedBox(
-                  width: screenSize.width / 4,
+                  width: screenSize.width / 3.5,
                 ),
                 AppBarHome(),
                 SizedBox(
@@ -70,7 +84,7 @@ class _topBarState extends State<topBar> {
           Text(
             'Contact Us',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w900,
               letterSpacing: 3,
@@ -99,7 +113,32 @@ class _topBarState extends State<topBar> {
 
   logOut() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        print("yes");
+        showDialog<String>(
+          context: widget.context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Logout!'),
+            content: const Text('Are you sure?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => {
+                  Navigator.pop(context, 'OK'),
+                  Navigator.pushReplacement(widget.context,
+                      MaterialPageRoute(builder: (context) => const loading())),
+                  sharedPref.deleteToken(),
+                    Navigator.pushReplacement(widget.context, MaterialPageRoute(builder: (context) => HomePage())),
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      },
       onHover: (value) {
         setState(() {
           _isHovering[2] = value;
@@ -111,7 +150,7 @@ class _topBarState extends State<topBar> {
           Text(
             'Logout',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w900,
               letterSpacing: 3,
@@ -139,30 +178,51 @@ class _topBarState extends State<topBar> {
   }
 
   AppBarLogo() {
-    return Container(
-      color: Colors.transparent,
-      height: 70,
-      width: 70,
-      child: Image.asset("assets/logo/logo2.png"),
+    return InkWell(
+      child: Container(
+        color: Colors.transparent,
+        height: 60,
+        width: 70,
+        child: Image.asset("assets/logo/logo2.png"),
+      ),
+      onTap: () {
+        Navigator.pushReplacement(context, PageRouteBuilder(pageBuilder:
+            (BuildContext context, Animation<double> animation1,
+                Animation<double> animation2) {
+          return homePageReception(
+            user: widget.user,
+          );
+        }));
+      },
     );
   }
 
   AppBarName() {
-    return const Text(
-      'LodgningLink',
-      style: TextStyle(
-        color: Color.fromARGB(255, 0, 0, 0),
-        fontSize: 26,
-        fontFamily: 'Raleway',
-        fontWeight: FontWeight.w900,
-        letterSpacing: 3,
+    return InkWell(
+      onTap: () {
+        Navigator.pushReplacement(context, PageRouteBuilder(pageBuilder:
+            (BuildContext context, Animation<double> animation1,
+                Animation<double> animation2) {
+          return homePageReception(
+            user: widget.user,
+          );
+        }));
+      },
+      child: const Text(
+        "LodgingLink",
+        style: TextStyle(
+          color: Color.fromARGB(255, 0, 0, 0),
+          fontSize: 20,
+          fontFamily: 'Raleway',
+          fontWeight: FontWeight.w900,
+          letterSpacing: 3,
+        ),
       ),
     );
   }
 
   AppBarHome() {
     return InkWell(
-      onTap: () {},
       onHover: (value) {
         setState(() {
           _isHovering[0] = value;
@@ -172,15 +232,13 @@ class _topBarState extends State<topBar> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Home',
-            style: TextStyle(
-              fontSize: 24,
+            widget.screenName,
+            style: const TextStyle(
+              fontSize: 20,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w900,
               letterSpacing: 3,
-              color: _isHovering[0]
-                  ? const Color.fromARGB(255, 0, 0, 0)
-                  : const Color.fromARGB(133, 255, 255, 255),
+              color: Color.fromARGB(255, 255, 255, 255),
             ),
           ),
           const SizedBox(height: 5),

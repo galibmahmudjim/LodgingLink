@@ -16,6 +16,12 @@ class sharedPref {
     return prefs.getString('login_token');
   }
 
+  static Future<String?> deleteToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("login_token");
+    return "200";
+  }
+
   static Future<User?> tokenUser() async {
     var token = await getString();
     if (token == null) return null;

@@ -1,26 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:lodginglink/Profile/User.dart';
+import 'package:lodginglink/Receptionist/appbarcontentItem.dart';
 import 'package:lodginglink/Receptionist/topBar.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:lodginglink/widget/loading.dart';
 
 class homePageReception extends StatefulWidget {
-  const homePageReception({Key? key, required User user}) : super(key: key);
+  final User user;
+  const homePageReception({Key? key, required this.user}) : super(key: key);
 
   @override
   State<homePageReception> createState() => _homePageReceptionState();
 }
 
 class _homePageReceptionState extends State<homePageReception> {
+  bool isLoading = false;
+
+  updateLoad(bool load) {
+    setState(() {
+      isLoading = load;
+      print(load);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-        backgroundColor: Colors.transparent,
-        extendBodyBehindAppBar: true,
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(150.0), // here the desired height
-          child: topBar(),
-        ), );
+    return isLoading
+        ? const loading()
+        : Scaffold(
+            backgroundColor: Colors.transparent,
+            extendBodyBehindAppBar: true,
+            appBar: PreferredSize(
+              preferredSize:
+                  const Size.fromHeight(60.0), // here the desired height
+              child: topBar(
+                user: widget.user,
+                screenName: "Home",
+                updateload: updateLoad,
+                context: context,
+              ),
+            ),
+            body: Stack(
+              children: [
+                cardBar(screenSize),
+              ],
+            ),
+          );
   }
 
   cardBar(Size screenSize) {
@@ -28,13 +53,14 @@ class _homePageReceptionState extends State<homePageReception> {
       heightFactor: 1,
       child: Padding(
         padding: EdgeInsets.only(
-          top: screenSize.height * 0.40,
+          top: screenSize.height / 8,
           left: screenSize.width / 5,
           right: screenSize.width / 5,
         ),
-        child: const Card(
-          color: Color.fromARGB(163, 255, 255, 255),
-        ),
+        child: Card(
+            elevation: 4,
+            color: const Color.fromARGB(163, 255, 255, 255),
+            child: appbarcontent(screenSize: screenSize)),
       ),
     );
   }
