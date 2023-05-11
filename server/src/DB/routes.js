@@ -12,4 +12,5 @@ router.get("/:id", controller.getPassword);
 router.post("/login", controller.loginAuth);
 router.post("/login/verifyAuth", controller.verifyToken);
 router.post("/updatePassword", controller.updatePassword);
+router.post("/getroomlist", controller.getroomlist);
 module.exports = router;

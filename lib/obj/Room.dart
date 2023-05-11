@@ -64,7 +64,7 @@ class Room {
     _roomAvailablity = json['RoomAvailablity'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(item) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['RoomID'] = this._roomID;
     data['RoomNumber'] = this._roomNumber;

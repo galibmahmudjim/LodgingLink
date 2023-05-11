@@ -44,8 +44,12 @@ class _appbarcontentState extends State<appbarcontent> {
         },
         onTap: () {
           if (i == 0) {
-            Navigator.push(widget.context,
-                MaterialPageRoute(builder: (context) => RoomReception(user: widget.user,)));
+            Navigator.push(
+                widget.context,
+                MaterialPageRoute(
+                    builder: (context) => RoomReception(
+                          user: widget.user,
+                        )));
           }
         },
         child: Text(

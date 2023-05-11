@@ -4,6 +4,8 @@ const checkEmail = 'select * from "User" where "UserID" = $1';
 const insertUser = 'insert into "User"("UserID","Password","Role") values($1, $2, $3)';
 const deleteUser = 'delete from "User" where "UserID" = $1';
 const updatePassword = 'update "User" set "Password"=$1, "Status"=$3 where "UserID" = $2';
+const getroomlist = 'select * from room';
+const get = 'select * from "User"';
 
 
 module.exports= {
@@ -12,5 +14,7 @@ module.exports= {
       checkEmail,
       insertUser,
       deleteUser,
-      updatePassword
+      updatePassword,
+      getroomlist,
+      get
 }

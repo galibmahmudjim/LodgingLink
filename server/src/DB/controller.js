@@ -123,6 +123,23 @@ const updatePassword = (req, res) => {
       })
 }
 
+const getroomlist = (req, res) => {
+      console.log("getroomlist");
+      pool.query(queries.getroomlist, (error, results) => {
+            if (error) throw error;
+            if (results.rows.length == 0)
+                  res.status(201);
+            res.status(200).json(results.rows);
+      });
+}
+
+const getUsers = (req, res) => {
+      console.log("get");
+      pool.query (queries.get, (error, results) => {
+            res.json(results.rows.length);
+      });
+}
+
 module.exports = {
       getUser,
       getPassword,
@@ -131,4 +148,6 @@ module.exports = {
       loginAuth,
       verifyToken,
       updatePassword,
+      getroomlist,
+      getUsers
 };
