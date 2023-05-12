@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:lodginglink/Receptionist/receptionistMakeReserve.dart';
 import 'package:lodginglink/Receptionist/topBar.dart';
 import 'package:lodginglink/widget/loading.dart';
 
@@ -300,13 +301,24 @@ class _RoomReceptionState extends State<RoomReception> {
           .map<DataRow>((item) => DataRow(
                 cells: [
                   DataCell(Text(item.roomNumber.toString()), onTap: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => receptionistMakeReservation(user: widget.user, room: item) ));
+                  }),
+                  DataCell(Text(item.roomType.toString()), onTap: () {
                     print(item.roomNumber);
                   }),
-                  DataCell(Text(item.roomType.toString())),
-                  DataCell(Text(item.roomClass.toString())),
-                  DataCell(Text(item.roomOccupancey.toString())),
-                  DataCell(Text(item.roomRate.toString())),
-                  DataCell(Text(item.roomAvailablity.toString())),
+                  DataCell(Text(item.roomClass.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomOccupancey.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomRate.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomAvailablity.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
                 ],
               ))
           .toList();

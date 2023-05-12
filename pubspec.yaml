@@ -52,6 +52,11 @@ dependencies:
   flutter_shimmer: ^2.1.2
   shimmer_animation: ^2.1.0+1
   data_table_2: ^2.4.2
+  syncfusion_flutter_datepicker: ^21.2.3
+  web_date_picker: ^1.0.0+3
+  calendar_date_picker2: ^0.5.2
+  date_field: ^3.0.3
+  rounded_loading_button: ^2.1.0
 
 dev_dependencies:
   flutter_test:
