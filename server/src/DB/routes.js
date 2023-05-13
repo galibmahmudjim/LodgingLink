@@ -13,4 +13,11 @@ router.post("/login", controller.loginAuth);
 router.post("/login/verifyAuth", controller.verifyToken);
 router.post("/updatePassword", controller.updatePassword);
 router.post("/getroomlist", controller.getroomlist);
+router.post("/addcustomer", controller.addCustomerUpdate);
+router.post("/addreservation", controller.addReservation);
+router.post("/getcustomerNid", controller.getcustomerNid);
+router.post("/getcustomerPhoneNumber", controller.getcustomerPhoneNumber);
+router.post("/getcustomerEmail", controller.getcustomerEmail);
+router.post("/getreservation", controller.getreservation);
+
 module.exports = router;

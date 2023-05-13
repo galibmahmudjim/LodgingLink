@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:lodginglink/Receptionist/receptionistMakeReserve.dart';
 import 'package:lodginglink/Receptionist/topBar.dart';
+import 'package:lodginglink/obj/Reservation.dart';
 import 'package:lodginglink/widget/loading.dart';
 
 import '../Profile/User.dart';
@@ -181,6 +183,8 @@ class _RoomReceptionState extends State<RoomReception> {
   ];
   List<Widget> rowElements = [];
 
+  late List<Reservation> reservations = [];
+
   List<String> items = ['Room List', 'Available Room', 'Reserved Room'];
   List<IconData> icons = [
     Icons.location_on,
@@ -227,6 +231,7 @@ class _RoomReceptionState extends State<RoomReception> {
               _color[i] = Colors.white;
               _istapped[i] = true;
             });
+            availableroom();
           } else if (i == 2) {
             setState(() {
               _color[i] = Colors.white;
@@ -302,7 +307,10 @@ class _RoomReceptionState extends State<RoomReception> {
                 cells: [
                   DataCell(Text(item.roomNumber.toString()), onTap: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => receptionistMakeReservation(user: widget.user, room: item) ));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => receptionistMakeReservation(
+                                user: widget.user, room: item)));
                   }),
                   DataCell(Text(item.roomType.toString()), onTap: () {
                     print(item.roomNumber);
@@ -323,5 +331,29 @@ class _RoomReceptionState extends State<RoomReception> {
               ))
           .toList();
     });
+  }
+
+  Future<void> availableroom() async {
+    Response? data = await Rest.getreservation();
+    var da = jsonDecode(data!.body)["rows"];
+    var temp = Reservation.fromJson(da[0]);
+    print(temp.toJson());
+
+    List<dynamic> jsonList = jsonDecode(da);
+
+  // Convert integers to strings and create a list of objects
+  List<Map<String, dynamic>> objectList = [];
+  for (dynamic jsonObject in jsonList) {
+    Map<String, dynamic> objectMap = Map<String, dynamic>.from(jsonObject);
+    objectMap.forEach((key, value) {
+      if (value is int) {
+        objectMap[key] = value.toString();
+      }
+    });
+    objectList.add(objectMap);
+  }
+
+  // Print the list of objects
+  print(objectList);
   }
 }

@@ -4,7 +4,7 @@ class Customer {
   String? _phoneNumber;
   String? _email;
   String? _address;
-  String? _nID;
+  String? _NID;
   String? _dateOfBirth;
 
   Customer(
@@ -13,7 +13,7 @@ class Customer {
       String? phoneNumber,
       String? email,
       String? address,
-      String? nID,
+      String? NID,
       String? dateOfBirth}) {
     if (customerID != null) {
       _customerID = customerID;
@@ -30,8 +30,8 @@ class Customer {
     if (address != null) {
       _address = address;
     }
-    if (nID != null) {
-      _nID = nID;
+    if (NID != null) {
+      _NID = NID;
     }
     if (dateOfBirth != null) {
       _dateOfBirth = dateOfBirth;
@@ -48,8 +48,8 @@ class Customer {
   set email(String? email) => _email = email;
   String? get address => _address;
   set address(String? address) => _address = address;
-  String? get nID => _nID;
-  set nID(String? nID) => _nID = nID;
+  String? get NID => _NID;
+  set NID(String? NID) => _NID = NID;
   String? get dateOfBirth => _dateOfBirth;
   set dateOfBirth(String? dateOfBirth) => _dateOfBirth = dateOfBirth;
 
@@ -59,7 +59,7 @@ class Customer {
     _phoneNumber = json['PhoneNumber'];
     _email = json['Email'];
     _address = json['Address'];
-    _nID = json['NID'];
+    _NID = json['NID'];
     _dateOfBirth = json['DateOfBirth'];
   }
 
@@ -70,7 +70,7 @@ class Customer {
     data['PhoneNumber'] = _phoneNumber;
     data['Email'] = _email;
     data['Address'] = _address;
-    data['NID'] = _nID;
+    data['NID'] = _NID;
     data['DateOfBirth'] = _dateOfBirth;
     return data;
   }

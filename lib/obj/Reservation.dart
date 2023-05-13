@@ -6,10 +6,12 @@ class Reservation {
   String? _checkOutDate;
   String? _customerID;
   int? _totalRoom;
-  List<String>? _roomNumber;
+  String? _roomNumber;
   int? _duePayment;
   int? _totalAmmount;
+  int? _Payment;
   String? _reservationStatus;
+  String? _paymentMethod;
 
   Reservation(
       {String? reservationID,
@@ -19,9 +21,11 @@ class Reservation {
       String? checkOutDate,
       String? customerID,
       int? totalRoom,
-      List<String>? roomNumber,
+      String? roomNumber,
       int? duePayment,
       int? totalAmmount,
+      String? paymentMethod,
+      int? Payment,
       String? reservationStatus}) {
     if (reservationID != null) {
       _reservationID = reservationID;
@@ -56,6 +60,12 @@ class Reservation {
     if (reservationStatus != null) {
       _reservationStatus = reservationStatus;
     }
+    if (Payment != null) {
+      _Payment = Payment;
+    }
+    if (paymentMethod != null) {
+      _paymentMethod = paymentMethod;
+    }
   }
 
   String? get reservationID => _reservationID;
@@ -73,8 +83,8 @@ class Reservation {
   set customerID(String? customerID) => _customerID = customerID;
   int? get totalRoom => _totalRoom;
   set totalRoom(int? totalRoom) => _totalRoom = totalRoom;
-  List<String>? get roomNumber => _roomNumber;
-  set roomNumber(List<String>? roomNumber) => _roomNumber = roomNumber;
+  String? get roomNumber => _roomNumber;
+  set roomNumber(String? roomNumber) => _roomNumber = roomNumber;
   int? get duePayment => _duePayment;
   set duePayment(int? duePayment) => _duePayment = duePayment;
   int? get totalAmmount => _totalAmmount;
@@ -82,6 +92,10 @@ class Reservation {
   String? get reservationStatus => _reservationStatus;
   set reservationStatus(String? reservationStatus) =>
       _reservationStatus = reservationStatus;
+  int? get Payment => _Payment;
+  set Payment(int? Payment) => _Payment = Payment;
+  String? get paymetMethod => _paymentMethod;
+  set paymentMethod(String? paymentMethod) => _paymentMethod = paymentMethod;
 
   Reservation.fromJson(Map<String, dynamic> json) {
     _reservationID = json['ReservationID'];
@@ -95,10 +109,12 @@ class Reservation {
     _duePayment = json['DuePayment'];
     _totalAmmount = json['TotalAmmount'];
     _reservationStatus = json['ReservationStatus'];
+    _Payment = json['Payment'];
+    _paymentMethod = json['paymentMethod'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['ReservationID'] = _reservationID;
     data['ReservationDate'] = _reservationDate;
     data['DurationOfStay'] = _durationOfStay;
@@ -110,6 +126,8 @@ class Reservation {
     data['DuePayment'] = _duePayment;
     data['TotalAmmount'] = _totalAmmount;
     data['ReservationStatus'] = _reservationStatus;
+    data['paymentMethod'] = _paymentMethod;
+    data['Payment'] = _Payment;
     return data;
   }
 }

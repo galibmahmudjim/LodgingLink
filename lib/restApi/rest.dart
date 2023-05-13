@@ -68,4 +68,87 @@ class Rest {
     final response = await http.post(url);
     return response;
   }
+
+  static Future<http.Response>? addCustomer(var customer) async {
+    final url = Uri.parse('http://$ip:6969/addcustomer');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(customer));
+    return response;
+  }
+
+  static Future<http.Response>? addReservation(var reservation) async {
+    final url = Uri.parse('http://$ip:6969/addreservation');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(reservation));
+    return response;
+  }
+
+  static Future<http.Response>? getCustomerNid(var nid) async {
+    final url = Uri.parse('http://$ip:6969/getcustomerNid');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(nid));
+    return response;
+  }
+
+  static Future<http.Response>? getCustomerEmail(var Email) async {
+    final url = Uri.parse('http://$ip:6969/getcustomerEmail');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(Email));
+    return response;
+  }
+
+  static Future<http.Response>? getCustomerPhone(var Phone) async {
+    final url = Uri.parse('http://$ip:6969/getcustomerPhoneNumber');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(Phone));
+    return response;
+  }
+
+  static Future<http.Response>? getreservation() async {
+    final url = Uri.parse('http://$ip:6969/getreservation');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response = await http.post(url);
+    return response;
+  }
 }

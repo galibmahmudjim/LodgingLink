@@ -140,6 +140,84 @@ const getUsers = (req, res) => {
       });
 }
 
+const addCustomerUpdate = (req,res)=>{
+      const {CustomerID,Name,PhoneNumber,Email,Address,NID,DateOfBirth} =  req.body;
+      pool.query(queries.addCustomerUpdate,[CustomerID,Name,PhoneNumber,Email,Address,NID,DateOfBirth],(error,results)=>{
+            if (error) throw error;
+            res.status(200).json(results);
+            
+      });
+      
+}
+
+const addReservation = (req,res)=>{
+      const { ReservationID, ReservationDate, DurationOfStay, CheckInDate, CheckOutDate, CustomerID, TotalRoom, RoomNumber, DuePayment, TotalAmmount, ReservationStatus, paymentMethod, Payment } = req.body;
+      pool.query(queries.addreservation,[ReservationID, ReservationDate, DurationOfStay, CheckInDate, CheckOutDate, CustomerID, TotalRoom, RoomNumber, DuePayment, TotalAmmount, ReservationStatus, paymentMethod, Payment],(error,results)=>{
+            if (error) throw error;
+            res.status(200).json(results);
+            
+      });
+      
+}
+
+const getcustomerNid = (req,res)=>{
+      const { NID } = req.body;
+      console.log(NID);
+      pool.query(queries.getcustomerNid,[NID],(error,results)=>{
+            if (error) throw error;
+            if (results.rows.length != 0) {
+                  res.status(200).json(results.rows[0]);
+            }
+            else {
+                  res.status(201).json({ "msg": "Not Found" });
+            }
+            
+      });
+      
+}
+const getcustomerPhoneNumber = (req,res)=>{
+      const { PhoneNumber } = req.body;
+      pool.query(queries.getcustomerPhone,[PhoneNumber],(error,results)=>{
+            if (error) throw error;
+            if (results.rows.length != 0) {
+                  res.status(200).json(results.rows[0]);
+            }
+            else {
+                  res.status(201).json({ "msg": "Not Found" });
+            }
+            
+      });
+      
+}
+
+const getreservation = (req,res)=>{
+      pool.query(queries.getreservation,(error,results)=>{
+            if (error) throw error;
+            if (results.rows.length != 0) {
+                  res.status(200).json(results);
+            }
+            else {
+                  res.status(201).json({ "msg": "Not Found" });
+            }
+            
+      });
+      
+}
+
+const getcustomerEmail = (req,res)=>{
+      const { Email } = req.body;
+      pool.query(queries.getcustomerEmail,[Email],(error,results)=>{
+            if (error) throw error;
+            if (results.rows.length != 0) {
+                  res.status(200).json(results.rows[0]);
+            }
+            else {
+                  res.status(201).json({ "msg": "Not Found" });
+            }
+            
+      });
+      
+}
 module.exports = {
       getUser,
       getPassword,
@@ -149,5 +227,11 @@ module.exports = {
       verifyToken,
       updatePassword,
       getroomlist,
-      getUsers
+      getUsers,
+      addCustomerUpdate,
+      addReservation,
+      getcustomerNid,
+      getcustomerEmail,
+      getcustomerPhoneNumber,
+      getreservation
 };
