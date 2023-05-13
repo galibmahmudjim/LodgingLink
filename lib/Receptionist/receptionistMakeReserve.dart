@@ -59,6 +59,15 @@ class _receptionistMakeReservationState
 
   var roundloadnidController = RoundedLoadingButtonController();
 
+  DateTime dateofbirthdate = DateTime.now();
+
+  FocusNode field1 = FocusNode();
+  FocusNode field2 = FocusNode();
+  FocusNode field3 = FocusNode();
+  FocusNode field4 = FocusNode();
+  FocusNode field5 = FocusNode();
+  FocusNode field6 = FocusNode();
+
 //!var
 
   @override
@@ -81,7 +90,7 @@ class _receptionistMakeReservationState
       body: Container(
         margin: EdgeInsets.only(
             left: screenSize.width / 10, right: screenSize.width / 10),
-        child: Center(child: reservationForm()),
+        child: SingleChildScrollView(child: Center(child: reservationForm())),
       ),
     );
   }
@@ -145,8 +154,8 @@ class _receptionistMakeReservationState
                       content: reservationDetailsForm(),
                       isActive: (_currentStep >= 0),
                       state: (_currentStep > 0 &&
-                              int.parse(
-                                      durationofstaycontroller.text.toString()) >
+                              int.parse(durationofstaycontroller.text
+                                      .toString()) >
                                   0)
                           ? StepState.complete
                           : StepState.disabled),
@@ -171,7 +180,7 @@ class _receptionistMakeReservationState
                           fontFamily: 'Raleway',
                         ),
                       ),
-                      content: const Text("This is Payment details"),
+                      content: paymentreserve(),
                       isActive: (_currentStep >= 2),
                       state: (_currentStep > 2)
                           ? StepState.complete
@@ -197,20 +206,81 @@ class _receptionistMakeReservationState
 //!_current step
   void continueStep() {
     setState(() {
-      setState(() {
-        if (_currentStep == 1 &&
-            int.parse(durationofstaycontroller.text.toString()) < 1) {
+      if (_currentStep == 0 &&
+          int.parse(durationofstaycontroller.text.toString()) < 1) {
+        Fluttertoast.showToast(
+          msg: "Please enter check-in check-out date correctly",
+          gravity: ToastGravity.TOP,
+          fontSize: 40,
+          webPosition: "center",
+          webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
+        );
+      } else if (_currentStep == 1 &&
+          (customernameController.text.toString().isEmpty ||
+              customerphoneNumberController.text.toString().isEmpty ||
+              customeremailController.text.toString().isEmpty ||
+              customeraddressController.text.toString().isEmpty ||
+              customernidController.text.toString().isEmpty ||
+              DateTime.now().year - dateofbirthdate.year < 18)) {
+        if (customernameController.text.toString().isEmpty) {
+          field1.requestFocus();
           Fluttertoast.showToast(
-            msg: "Please enter check-in check-out date correctly",
+            msg: "Enter Customer Name",
             gravity: ToastGravity.TOP,
             fontSize: 40,
             webPosition: "center",
             webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
           );
-        } else if (_currentStep < 2) {
-          _currentStep++;
+        } else if (customerphoneNumberController.text.toString().isEmpty) {
+          field2.requestFocus();
+          Fluttertoast.showToast(
+            msg: "Enter Phone Number",
+            gravity: ToastGravity.TOP,
+            fontSize: 40,
+            webPosition: "center",
+            webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
+          );
+        } else if (customeremailController.text.toString().isEmpty) {
+          field3.requestFocus();
+          Fluttertoast.showToast(
+            msg: "Enter Email",
+            gravity: ToastGravity.TOP,
+            fontSize: 40,
+            webPosition: "center",
+            webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
+          );
+        } else if (customeraddressController.text.toString().isEmpty) {
+          field4.requestFocus();
+          Fluttertoast.showToast(
+            msg: "Enter Email",
+            gravity: ToastGravity.TOP,
+            fontSize: 40,
+            webPosition: "center",
+            webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
+          );
+        } else if (customernidController.text.toString().isEmpty) {
+          field5.requestFocus();
+          Fluttertoast.showToast(
+            msg: "Enter NID number",
+            gravity: ToastGravity.TOP,
+            fontSize: 40,
+            webPosition: "center",
+            webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
+          );
+        } else if (DateTime.now().year - dateofbirthdate.year < 18) {
+          field4.requestFocus();
+          Fluttertoast.showToast(
+            msg: "Age under 18",
+            gravity: ToastGravity.TOP,
+            fontSize: 40,
+            webPosition: "center",
+            webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
+          );
         }
-      });
+        
+      } else if (_currentStep < 2) {
+        _currentStep++;
+      }
     });
   }
 
@@ -534,21 +604,28 @@ class _receptionistMakeReservationState
                   children: [
                     NameCustomer(),
                     const SizedBox(
-                      height: 10,
+                      height: 2,
                     ),
                     phoneNumber(),
                     const SizedBox(
-                      height: 10,
+                      height: 2,
                     ),
                     email(),
                     const SizedBox(
-                      height: 10,
+                      height: 2,
                     ),
                     address(),
                     const SizedBox(
-                      height: 10,
+                      height: 2,
                     ),
                     nid(),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    dob(),
+                    const SizedBox(
+                      height: 30,
+                    ),
                   ]),
             ),
           ),
@@ -584,6 +661,10 @@ class _receptionistMakeReservationState
                 width: screenSize.width / 4,
                 height: 50,
                 child: TextFormField(
+                  focusNode: field1,
+                  onFieldSubmitted: (value) {
+                    field2.requestFocus();
+                  },
                   style: const TextStyle(
                     fontFamily: "Railway",
                     fontSize: 18,
@@ -647,6 +728,10 @@ class _receptionistMakeReservationState
                 width: screenSize.width / 4,
                 height: 50,
                 child: TextFormField(
+                  focusNode: field2,
+                  onFieldSubmitted: (value) {
+                    field3.requestFocus();
+                  },
                   style: const TextStyle(
                     fontFamily: "Railway",
                     fontSize: 18,
@@ -727,6 +812,10 @@ class _receptionistMakeReservationState
                 width: screenSize.width / 4,
                 height: 50,
                 child: TextFormField(
+                  focusNode: field3,
+                  onFieldSubmitted: (value) {
+                    field4.requestFocus();
+                  },
                   style: const TextStyle(
                     fontFamily: "Railway",
                     fontSize: 18,
@@ -807,6 +896,10 @@ class _receptionistMakeReservationState
                 width: screenSize.width / 4,
                 height: 50,
                 child: TextFormField(
+                  focusNode: field4,
+                  onFieldSubmitted: (value) {
+                    field5.requestFocus();
+                  },
                   style: const TextStyle(
                     fontFamily: "Railway",
                     fontSize: 18,
@@ -871,6 +964,10 @@ class _receptionistMakeReservationState
                 width: screenSize.width / 4,
                 height: 50,
                 child: TextFormField(
+                  focusNode: field5,
+                  onFieldSubmitted: (value) {
+                    field6.requestFocus();
+                  },
                   style: const TextStyle(
                     fontFamily: "Railway",
                     fontSize: 18,
@@ -922,9 +1019,64 @@ class _receptionistMakeReservationState
     );
   }
 
+  dob() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: screenSize.width / 4,
+          child: Container(
+            color: Colors.white,
+            alignment: AlignmentDirectional.centerStart,
+            child: const Text(
+              "Date of Birth: ",
+              style: TextStyle(
+                fontFamily: "Railway",
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: screenSize.width / 4,
+          height: 50,
+          child: dobdatefield(),
+        )
+      ],
+    );
+  }
+
+  dobdatefield() {
+    return DateTimeField(
+        lastDate: DateTime.now(),
+        mode: DateTimeFieldPickerMode.date,
+        dateTextStyle: const TextStyle(
+          fontFamily: "Railway",
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          fontStyle: FontStyle.italic,
+        ),
+        decoration: const InputDecoration(
+            hintText: 'Date of Birth',
+            prefixIcon: Icon(Icons.calendar_month),
+            prefixIconColor: Color.fromARGB(137, 0, 0, 0)),
+        selectedDate: dateofbirthdate,
+        onDateSelected: (DateTime value) {
+          setState(() {
+            dateofbirthdate = value;
+          });
+        });
+  }
+
   void _doSomething() async {
     Timer(const Duration(seconds: 3), () {
       roundloadPhoneController.success();
     });
+  }
+
+  paymentreserve() {
+    return Container();
   }
 }
