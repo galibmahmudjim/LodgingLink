@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lodginglink/Receptionist/ReservationList.dart';
 import 'package:lodginglink/Receptionist/roomReception.dart';
 
 import '../Profile/User.dart';
@@ -48,6 +49,14 @@ class _appbarcontentState extends State<appbarcontent> {
                 widget.context,
                 MaterialPageRoute(
                     builder: (context) => RoomReception(
+                          user: widget.user,
+                        )));
+          }
+          if(i==1){
+            Navigator.push(
+                widget.context,
+                MaterialPageRoute(
+                    builder: (context) => ReservationList(
                           user: widget.user,
                         )));
           }

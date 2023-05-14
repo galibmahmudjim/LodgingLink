@@ -175,6 +175,22 @@ const getcustomerNid = (req,res)=>{
       });
       
 }
+
+const getcustomerid = (req,res)=>{
+      const { CustomerID } = req.body;
+      console.log(CustomerID);
+      pool.query(queries.getcustomerId,[CustomerID],(error,results)=>{
+            if (error) throw error;
+            if (results.rows.length != 0) {
+                  res.status(200).json(results.rows[0]);
+            }
+            else {
+                  res.status(201).json({ "msg": "Not Found" });
+            }
+            
+      });
+      
+}
 const getcustomerPhoneNumber = (req,res)=>{
       const { PhoneNumber } = req.body;
       pool.query(queries.getcustomerPhone,[PhoneNumber],(error,results)=>{
@@ -194,7 +210,7 @@ const getreservation = (req,res)=>{
       pool.query(queries.getreservation,(error,results)=>{
             if (error) throw error;
             if (results.rows.length != 0) {
-                  res.status(200).json(results);
+                  res.status(200).json(results.rows);
             }
             else {
                   res.status(201).json({ "msg": "Not Found" });
@@ -218,6 +234,33 @@ const getcustomerEmail = (req,res)=>{
       });
       
 }
+
+const getreservationid = (req,res)=>{
+      const { ReservationID } = req.body;
+      console.log(ReservationID);
+      pool.query(queries.getreservationid,[ReservationID],(error,results)=>{
+            if (error) throw error;
+            if (results.rows.length != 0) {
+                  res.status(200).json(results.rows[0]);
+            }
+            else {
+                  res.status(201).json({ "msg": "Not Found" });
+            }
+            
+      });
+      
+}
+const updateReservation = (req,res)=>{
+      const { TotalAmmount, Payment, DuePayment, ReservationStatus, ReservationID } = req.body;
+      console.log(ReservationID);
+      pool.query(queries.updateReservation,[TotalAmmount,  DuePayment, Payment, ReservationStatus, ReservationID],(error,results)=>{
+            if (error) throw error;
+                  res.status(200).json(results.rows[0]);
+            
+      });
+      
+}
+
 module.exports = {
       getUser,
       getPassword,
@@ -233,5 +276,8 @@ module.exports = {
       getcustomerNid,
       getcustomerEmail,
       getcustomerPhoneNumber,
-      getreservation
+      getreservation,
+      getreservationid,
+      getcustomerid,
+      updateReservation
 };

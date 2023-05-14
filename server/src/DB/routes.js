@@ -16,8 +16,11 @@ router.post("/getroomlist", controller.getroomlist);
 router.post("/addcustomer", controller.addCustomerUpdate);
 router.post("/addreservation", controller.addReservation);
 router.post("/getcustomerNid", controller.getcustomerNid);
+router.post("/getcustomerid", controller.getcustomerid);
 router.post("/getcustomerPhoneNumber", controller.getcustomerPhoneNumber);
 router.post("/getcustomerEmail", controller.getcustomerEmail);
 router.post("/getreservation", controller.getreservation);
+router.post("/getreservationid", controller.getreservationid);
+router.post("/updatereservation", controller.updateReservation);
 
 module.exports = router;

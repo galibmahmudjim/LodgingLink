@@ -111,6 +111,34 @@ class Rest {
     return response;
   }
 
+  static Future<http.Response>? getCustomerid(var CustomerID) async {
+    final url = Uri.parse('http://$ip:6969/getcustomerid');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(CustomerID));
+    return response;
+  }
+
+  static Future<http.Response>? updatereservation(var reservation) async {
+    final url = Uri.parse('http://$ip:6969/updatereservation');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(reservation));
+    return response;
+  }
+
   static Future<http.Response>? getCustomerEmail(var Email) async {
     final url = Uri.parse('http://$ip:6969/getcustomerEmail');
 
@@ -149,6 +177,18 @@ class Rest {
     };
 
     final response = await http.post(url);
+    return response;
+  }
+
+  static Future<http.Response>? getreservationid(var body) async {
+    final url = Uri.parse('http://$ip:6969/getreservationid');
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response = await http.post(url, headers: headers, body: jsonEncode(body));
     return response;
   }
 }

@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:lodginglink/Receptionist/receptionistMakeReserve.dart';
 import 'package:lodginglink/Receptionist/topBar.dart';
 import 'package:lodginglink/obj/Reservation.dart';
 import 'package:lodginglink/widget/loading.dart';
+import 'package:intl/intl.dart';
 
 import '../Profile/User.dart';
 import '../obj/Room.dart';
@@ -22,6 +24,11 @@ class RoomReception extends StatefulWidget {
 class _RoomReceptionState extends State<RoomReception> {
   bool isLoading = false;
   late List<DataRow> rows = [];
+  late List<DataRow> showrow = [];
+
+  DateTime startcheckindate = DateTime.now();
+
+  DateTime startcheckoutdate = DateTime.now();
 
   updateLoad(bool load) {
     setState(() {
@@ -35,6 +42,7 @@ class _RoomReceptionState extends State<RoomReception> {
     // TODO: implement initState
     super.initState();
     rowRoomList();
+    retrievedata();
   }
 
   var screenSize;
@@ -51,10 +59,11 @@ class _RoomReceptionState extends State<RoomReception> {
         body: Column(
           children: [
             roomReceptionistAppbarcarrdConten(),
+            daterange(),
             isLoading
                 ? const loading()
                 : Container(
-                    height: screenSize.height / 1.3,
+                    height: screenSize.height / 1.5,
                     width: screenSize.width / 1.3,
                     alignment: Alignment.center,
                     child: Card(
@@ -171,7 +180,7 @@ class _RoomReceptionState extends State<RoomReception> {
                       ),
                       onSort: (columnIndex, _) => _sort(columnIndex, _)),
                 ],
-                rows: rows)));
+                rows: showrow)));
   }
 
   final List _isHovering = [false, false, false];
@@ -222,6 +231,7 @@ class _RoomReceptionState extends State<RoomReception> {
                 _color.length, const Color.fromARGB(133, 10, 10, 10));
           });
           if (i == 0) {
+            roomlist();
             setState(() {
               _color[i] = Colors.white;
               _istapped[i] = true;
@@ -330,30 +340,166 @@ class _RoomReceptionState extends State<RoomReception> {
                 ],
               ))
           .toList();
+      for (var item in rows) {
+        setState(() {
+          showrow.add(item);
+        });
+      }
     });
+  }
+
+  retrievedata() async {
+    Response? data = await Rest.getreservation();
+    List da = jsonDecode(data!.body);
+    for (var element in da) {
+      Reservation temp = Reservation(
+          reservationID: element["ReservationID"],
+          reservationDate: element["ReservationDate"],
+          durationOfStay: int.parse(element["DurationOfStay"].toString()),
+          checkInDate: element["CheckInDate"],
+          checkOutDate: element["CheckOutDate"],
+          customerID: element["CustomerID"],
+          totalRoom: element["TotalRoom"],
+          roomNumber: element["RoomNumber"],
+          duePayment: int.parse(element["DuePayment"].toString()),
+          totalAmmount: int.parse(element["TotalAmmount"].toString()),
+          paymentMethod: element["PaymentMethod"],
+          Payment: element["Payment"],
+          reservationStatus: element["ReservationStatus"]);
+      reservations.add(temp);
+    }
   }
 
   Future<void> availableroom() async {
-    Response? data = await Rest.getreservation();
-    var da = jsonDecode(data!.body)["rows"];
-    var temp = Reservation.fromJson(da[0]);
-    print(temp.toJson());
+    List<String> roomList = [];
+    DateTime checkInDatetime;
 
-    List<dynamic> jsonList = jsonDecode(da);
-
-  // Convert integers to strings and create a list of objects
-  List<Map<String, dynamic>> objectList = [];
-  for (dynamic jsonObject in jsonList) {
-    Map<String, dynamic> objectMap = Map<String, dynamic>.from(jsonObject);
-    objectMap.forEach((key, value) {
-      if (value is int) {
-        objectMap[key] = value.toString();
-      }
+    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+    setState(() {
+      roomList.clear();
+      showrow.clear();
     });
-    objectList.add(objectMap);
+    for (var item in reservations) {
+      DateTime d1 = dateFormat.parse(item.checkInDate.toString());
+      DateTime d2 = dateFormat.parse(item.checkOutDate.toString());
+      String str1 = DateFormat("dd-MM-yyyy").format(startcheckindate);
+      String str2 = DateFormat("dd-MM-yyyy").format(startcheckoutdate);
+      DateTime s1 = dateFormat.parse(str1.toString());
+      DateTime s2 = dateFormat.parse(str2.toString());
+      if (!(d1.isAfter(s2) || d2.isBefore(s1))) {
+        roomList.add(item.roomNumber.toString());
+      }
+    }
+    print(roomList);
+    for (var item in rows) {
+      setState(() {
+        showrow.add(item);
+      });
+    }
+    setState(() {
+      showrow.removeWhere((element) =>
+          roomList.contains(element.cells.elementAt(0).child.toString()));
+    });
   }
 
-  // Print the list of objects
-  print(objectList);
+  void roomlist() {
+    setState(() {
+      showrow = rows;
+    });
+  }
+
+  daterange() {
+    return Card(
+      margin: EdgeInsets.only(
+          left: screenSize.width / 9, right: screenSize.width / 9),
+      child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: Column(
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              SizedBox(
+                width: screenSize.width / 6,
+                child: Container(
+                  color: Colors.white,
+                  alignment: AlignmentDirectional.centerStart,
+                  child: const Text(
+                    "Check-In date: ",
+                    style: TextStyle(
+                      fontFamily: "Railway",
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                  width: screenSize.width / 8,
+                  height: 50,
+                  child: DateTimeField(
+                      firstDate: DateTime.now(),
+                      mode: DateTimeFieldPickerMode.date,
+                      dateTextStyle: const TextStyle(
+                        fontFamily: "Railway",
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      decoration: const InputDecoration(
+                          hintText: 'Pick Check-in date',
+                          prefixIcon: Icon(Icons.calendar_month),
+                          prefixIconColor: Color.fromARGB(137, 0, 0, 0)),
+                      selectedDate: startcheckindate,
+                      onDateSelected: (DateTime value) {
+                        setState(() {
+                          startcheckindate = value;
+                        });
+                      })),
+              const SizedBox(
+                width: 50,
+              ),
+              SizedBox(
+                width: screenSize.width / 6,
+                child: Container(
+                  color: Colors.white,
+                  alignment: AlignmentDirectional.centerStart,
+                  child: const Text(
+                    "Check-Out date: ",
+                    style: TextStyle(
+                      fontFamily: "Railway",
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                  width: screenSize.width / 8,
+                  height: 50,
+                  child: DateTimeField(
+                      firstDate: DateTime.now(),
+                      mode: DateTimeFieldPickerMode.date,
+                      dateTextStyle: const TextStyle(
+                        fontFamily: "Railway",
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      decoration: const InputDecoration(
+                          hintText: 'Pick Check-out date',
+                          prefixIcon: Icon(Icons.calendar_month),
+                          prefixIconColor: Color.fromARGB(137, 0, 0, 0)),
+                      selectedDate: startcheckoutdate,
+                      onDateSelected: (DateTime value) {
+                        setState(() {
+                          startcheckoutdate = value;
+                        });
+                      }))
+            ]),
+          ],
+        ),
+      ),
+    );
   }
 }

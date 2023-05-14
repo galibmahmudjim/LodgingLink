@@ -12,6 +12,9 @@ const getcustomerEmail = 'select * from "customer" where "Email" = $1';
 const addCustomerUpdate = 'INSERT INTO customer("CustomerID","Name","PhoneNumber","Email","Address","NID","DateOfBirth") VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT ("CustomerID") DO    UPDATE SET "Name" = $2,"Email" = $4,"Address" = $5,"NID"=$6,"DateOfBirth" = $7'
 const addreservation = 'INSERT INTO reservations("ReservationID", "ReservationDate", "DurationOfStay", "CheckInDate", "CheckOutDate", "CustomerID", "TotalRoom", "RoomNumber", "DuePayment", "TotalAmmount", "ReservationStatus","PaymentMethod", "Payment") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)'
 const getreservation = 'select * from reservations';
+const getreservationid = 'select * from reservations where "ReservationID" = $1';
+const getcustomerId = 'select * from "customer" where "CustomerID" = $1';
+const updateReservation = 'Update reservations set "TotalAmmount" = $1, "DuePayment"=$2, "Payment" = $3, "ReservationStatus" = $4 where "ReservationID" = $5';
 module.exports= {
       getUser,
       getPassword,
@@ -26,5 +29,8 @@ module.exports= {
       getcustomerEmail,
       addCustomerUpdate,
       addreservation,
-      getreservation
+      getreservation,
+      getreservationid,
+      getcustomerId,
+      updateReservation
 }
