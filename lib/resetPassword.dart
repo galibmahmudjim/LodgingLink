@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lodginglink/HR/HRHome.dart';
 import 'package:lodginglink/Receptionist/homePageReception.dart';
 import 'package:lodginglink/restApi/rest.dart';
 import 'package:lodginglink/widget/videoControl.dart';
@@ -341,6 +342,12 @@ class _resetPasswordState extends State<resetPassword> {
             MaterialPageRoute(
                 builder: (context) => homePageReception(user: widget.user)));
       }
+      else if (widget.user.Role == "HR") {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HRHome(user: widget.user)));
+    }
     } else {
       errorToast(jsonDecode(response.body)["Message"]);
     }

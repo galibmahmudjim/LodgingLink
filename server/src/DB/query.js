@@ -17,7 +17,13 @@ const getreservationid = 'select * from reservations where "ReservationID" = $1'
 const getcustomerId = 'select * from "customer" where "CustomerID" = $1';
 const getcustomer = 'select * from "customer"';
 const updateReservation = 'Update reservations set "TotalAmmount" = $1, "DuePayment"=$2, "Payment" = $3, "ReservationStatus" = $4 where "ReservationID" = $5';
-module.exports= {
+const addEmployee = 'INSERT INTO employee ("EmployeeID", "Name", "PhoneNumber", "Address", "Email", "nid", "DateOfBirth", "Position", "Salary", "JoiningDate", "CurrentStatus") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
+const getemployee = 'select * from employee';
+const getemployeeID = 'select * from employee where "EmployeeID" = $1';
+const updateemployee = 'update "employee" set "CurrentStatus"=$1 where "EmployeeID" = $2';
+const addUser = 'INSERT INTO "User" ("UserID", "Password", "Role", "Status") VALUES ($1, $2, $3, $4)';
+
+module.exports = {
       getUser,
       getPassword,
       checkEmail,
@@ -36,5 +42,10 @@ module.exports= {
       getcustomerId,
       updateReservation,
       getcustomer,
-      getreservationhistory
+      getreservationhistory,
+      addEmployee,
+      getemployee,
+      getemployeeID,
+      updateemployee,
+      addUser
 }

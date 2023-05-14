@@ -24,5 +24,11 @@ router.post("/getreservationhistory", controller.getreservationhistory);
 router.post("/getreservationid", controller.getreservationid);
 router.post("/updatereservation", controller.updateReservation);
 router.post("/getcustomer", controller.getcustomer);
+router.post("/addemployee", controller.addEmployee);
+router.post("/getemployee", controller.getemployee);
+router.post("/getemployeeID", controller.getemployeeID);
+router.post("/updateemployee", controller.updateemployee);
+router.post("/addusers", controller.addusers);
+
 
 module.exports = router;

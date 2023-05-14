@@ -60,6 +60,7 @@ const loginAuth = (req, res) => {
 
 const addUser = (req,res)=>{
       const {UserID, Password, Role} =  req.body;
+      console.log(Role);
       pool.query(queries.checkEmail,[UserID],(error,results)=>{
             if(results.rows.length){
                   res.send("Username already exist.");
@@ -73,6 +74,24 @@ const addUser = (req,res)=>{
       });
       
 }
+
+
+const addusers = (req,res)=>{
+      const { UserID, Password, Role, Status } = req.body;
+      pool.query(queries.checkEmail,[UserID],(error,results)=>{
+            if(results.rows.length){
+                  res.status(201).send("Username already exist.");
+            }
+            else{
+                  pool.query(queries.addUser,[UserID, Password, Role, Status],(error,results)=>{
+                        if(error) throw error;
+                        res.status(200).send('User inserted');
+                  });
+            }
+      });
+      
+}
+
 
 const verifyToken = (req, res) => {
       const token = req.body['token'];
@@ -119,6 +138,15 @@ const updatePassword = (req, res) => {
             if (error) { throw error; }
             res.status(200).json({
                   "Message": "Password reset successful",
+            });
+      })
+}
+const updateemployee = (req, res) => {
+      const { CurrentStatus, EmployeeID } = req.body;
+      pool.query(queries.updateemployee, [CurrentStatus, EmployeeID], (error, results) => {
+            if (error) { throw error; }
+            res.status(200).json({
+                  "Message": "successful",
             });
       })
 }
@@ -231,6 +259,45 @@ const getreservationhistory = (req,res)=>{
       });
       
 }
+const getemployee = (req,res)=>{
+      pool.query(queries.getemployee,(error,results)=>{
+            if (error) throw error;
+            if (results.rows.length != 0) {
+                  res.status(200).json(results.rows);
+            }
+            else {
+                  res.status(201).json({ "msg": "Not Found" });
+            }
+      });
+      
+}
+
+const getemployeeID = (req, res) => {
+      const { EmployeeID } = req.body;
+      console.log(EmployeeID);
+      pool.query(queries.getemployeeID,[EmployeeID],(error,results)=>{
+            if (error) throw error;
+            if (results.rows.length != 0) {
+                  res.status(200).json(results.rows[0]);
+            }
+            else {
+                  res.status(201).json({ "msg": "Not Found" });
+            }
+      });
+      
+}
+
+const addEmployee = (req, res) => {
+      const {EmployeeID, Name, PhoneNumber, Address, Email, nid, DateOfBirth, Position, Salary, JoiningDate, CurrentStatus} = req.body
+      pool.query(queries.addEmployee,[EmployeeID, Name, PhoneNumber, Address, Email, nid, DateOfBirth, Position, Salary, JoiningDate, CurrentStatus],(error,results)=>{
+            if (error) throw error;
+           
+                  res.status(200).send("Yes");
+          
+      });
+      
+}
+
 
 const getcustomerEmail = (req,res)=>{
       const { Email } = req.body;
@@ -300,5 +367,10 @@ module.exports = {
       getcustomerid,
       updateReservation,
       getcustomer,
-      getreservationhistory
+      getreservationhistory,
+      addEmployee,
+      getemployee,
+      getemployeeID,
+      updateemployee,
+      addusers
 };

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lodginglink/HR/HRHome.dart';
 import 'package:lodginglink/Profile/User.dart';
 import 'package:lodginglink/Utils/sharedPref.dart';
 import 'package:lodginglink/resetPassword.dart';
@@ -342,6 +343,12 @@ class _HomePageState extends State<HomePage> {
           context,
           MaterialPageRoute(
               builder: (context) => homePageReception(user: user)));
+    }
+    else if (user.Role == "HR") {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HRHome(user: user)));
     }
   }
 }

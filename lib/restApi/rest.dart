@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Rest {
-  static String ip = "localhost";
+  static String ip = "192.168.0.103";
   static Future<http.Response>? getUsers(String? UserID) async {
     final url = Uri.parse('http://$ip:6969/getuser');
     final headers = {
@@ -192,7 +192,8 @@ class Rest {
     final response = await http.post(url);
     return response;
   }
-    static Future<http.Response>? getreservationhistroy() async {
+
+  static Future<http.Response>? getreservationhistroy() async {
     final url = Uri.parse('http://$ip:6969/getreservationhistory');
 
     final headers = {
@@ -217,4 +218,70 @@ class Rest {
         await http.post(url, headers: headers, body: jsonEncode(body));
     return response;
   }
+
+  static Future<http.Response>? addemployee(var body) async {
+    final url = Uri.parse('http://$ip:6969/addemployee');
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(body));
+    return response;
+  }
+
+  static Future<http.Response>? getemployee() async {
+    final url = Uri.parse('http://$ip:6969/getemployee');
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response = await http.post(url);
+    return response;
+  }
+
+  static Future<http.Response>? getemployeeID(var body) async {
+    final url = Uri.parse('http://$ip:6969/getemployeeID');
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+    print(body);
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(body));
+    return response;
+  }
+    static Future<http.Response>? updateemployee(var body) async {
+    final url = Uri.parse('http://$ip:6969/updateemployee');
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+    print(body);
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(body));
+    return response;
+  }
+     static Future<http.Response>? addusers(var body) async {
+    final url = Uri.parse('http://$ip:6969/addusers');
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+    print(body);
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(body));
+    return response;
+  }
+  
 }

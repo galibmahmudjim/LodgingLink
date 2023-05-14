@@ -413,6 +413,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  pretty_textfield:
+    dependency: "direct main"
+    description:
+      name: pretty_textfield
+      sha256: fb163e33e3403ef399b6d5b9efe85a0bd4667142faba0a1e89e90bd00f9d80ad
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   process:
     dependency: transitive
     description:
