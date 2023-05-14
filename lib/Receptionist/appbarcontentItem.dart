@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lodginglink/Receptionist/CustomerList.dart';
 import 'package:lodginglink/Receptionist/ReservationList.dart';
 import 'package:lodginglink/Receptionist/roomReception.dart';
 
 import '../Profile/User.dart';
+import 'History.dart';
 
 class appbarcontent extends StatefulWidget {
   final BuildContext context;
@@ -52,11 +54,28 @@ class _appbarcontentState extends State<appbarcontent> {
                           user: widget.user,
                         )));
           }
-          if(i==1){
+          else if(i==1){
             Navigator.push(
                 widget.context,
                 MaterialPageRoute(
                     builder: (context) => ReservationList(
+                          user: widget.user,
+                        )));
+          }
+          else if(i==2){
+            Navigator.push(
+                widget.context,
+                MaterialPageRoute(
+                    builder: (context) => CustomerList(
+                          user: widget.user,
+                        )));
+          }
+
+          else if(i==3){
+            Navigator.push(
+                widget.context,
+                MaterialPageRoute(
+                    builder: (context) => History(
                           user: widget.user,
                         )));
           }

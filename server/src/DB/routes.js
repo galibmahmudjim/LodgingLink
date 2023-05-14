@@ -20,7 +20,9 @@ router.post("/getcustomerid", controller.getcustomerid);
 router.post("/getcustomerPhoneNumber", controller.getcustomerPhoneNumber);
 router.post("/getcustomerEmail", controller.getcustomerEmail);
 router.post("/getreservation", controller.getreservation);
+router.post("/getreservationhistory", controller.getreservationhistory);
 router.post("/getreservationid", controller.getreservationid);
 router.post("/updatereservation", controller.updateReservation);
+router.post("/getcustomer", controller.getcustomer);
 
 module.exports = router;

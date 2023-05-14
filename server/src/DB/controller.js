@@ -219,6 +219,18 @@ const getreservation = (req,res)=>{
       });
       
 }
+const getreservationhistory = (req,res)=>{
+      pool.query(queries.getreservationhistory,['Check-Out','Cancelled'],(error,results)=>{
+            if (error) throw error;
+            if (results.rows.length != 0) {
+                  res.status(200).json(results.rows);
+            }
+            else {
+                  res.status(201).json({ "msg": "Not Found" });
+            }
+      });
+      
+}
 
 const getcustomerEmail = (req,res)=>{
       const { Email } = req.body;
@@ -260,7 +272,14 @@ const updateReservation = (req,res)=>{
       });
       
 }
-
+const getcustomer = (req,res)=>{
+      pool.query(queries.getcustomer,(error,results)=>{
+            if (error) throw error;
+                  res.status(200).json(results.rows);
+            
+      });
+      
+}
 module.exports = {
       getUser,
       getPassword,
@@ -279,5 +298,7 @@ module.exports = {
       getreservation,
       getreservationid,
       getcustomerid,
-      updateReservation
+      updateReservation,
+      getcustomer,
+      getreservationhistory
 };

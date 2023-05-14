@@ -39,6 +39,8 @@ class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
 
   var customernamepreviewController = TextEditingController();
 
+  String dropdownvalue = "Reserved";
+
   var customeridpreviewController = TextEditingController();
 
   var phonenumberpreviewController = TextEditingController();
@@ -1338,6 +1340,7 @@ class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
     );
   }
 
+  var items = ['Reserved', 'Cancelled', 'Check-Out'];
   Rservationstatuspreview() {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -1366,30 +1369,25 @@ class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
               SizedBox(
                 width: screenSize.width / 4,
                 height: 50,
-                child: TextFormField(
+                child: DropdownButton(
+                  focusColor: Colors.white,
+                  value: dropdownvalue,
+                  items: items.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownvalue = newValue!;
+                    });
+                  },
                   style: const TextStyle(
                     fontFamily: "Railway",
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
-                  ),
-                  controller: reservationstatuspreviewController,
-                  decoration: InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    labelStyle: const TextStyle(
-                      color: Color.fromARGB(137, 54, 35, 35),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(0, 54, 49, 54)),
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color.fromARGB(0, 56, 50, 50),
-                      ),
-                    ),
                   ),
                 ),
               )
@@ -1407,7 +1405,7 @@ class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
     reservation.duePayment =
         int.parse(dueammountpreviewController.text.toString());
     reservation.reservationStatus =
-        reservationstatuspreviewController.text.toString();
+        dropdownvalue;
     var json = reservation.toJson();
     print(json);
     Response? respanse = await Rest.updatereservation(reservation);
@@ -1484,8 +1482,9 @@ class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
 
       paymentmethodpreviewController.text = reservation.paymetMethod.toString();
 
-      reservationstatuspreviewController.text =
-          reservation.reservationStatus.toString();
+      dropdownvalue = reservation.reservationStatus.toString().isEmpty
+          ? "Reserved"
+          : reservation.reservationStatus.toString();
     });
   }
 

@@ -125,6 +125,19 @@ class Rest {
     return response;
   }
 
+  static Future<http.Response>? getCustomer() async {
+    final url = Uri.parse('http://$ip:6969/getcustomer');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response = await http.post(url);
+    return response;
+  }
+
   static Future<http.Response>? updatereservation(var reservation) async {
     final url = Uri.parse('http://$ip:6969/updatereservation');
 
@@ -179,6 +192,18 @@ class Rest {
     final response = await http.post(url);
     return response;
   }
+    static Future<http.Response>? getreservationhistroy() async {
+    final url = Uri.parse('http://$ip:6969/getreservationhistory');
+
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response = await http.post(url);
+    return response;
+  }
 
   static Future<http.Response>? getreservationid(var body) async {
     final url = Uri.parse('http://$ip:6969/getreservationid');
@@ -188,7 +213,8 @@ class Rest {
       'Accept': '*/*'
     };
 
-    final response = await http.post(url, headers: headers, body: jsonEncode(body));
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(body));
     return response;
   }
 }

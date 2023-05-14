@@ -1485,8 +1485,7 @@ class _receptionistMakeReservationState
               ),
               SizedBox(
                 width: screenSize.width / 4,
-                height: 50,
-                child: DropdownButton(
+                height: 50, child: DropdownButton(
                   focusColor: Colors.white,
                   value: paymentmethoditem,
                   items: items.map((String items) {
