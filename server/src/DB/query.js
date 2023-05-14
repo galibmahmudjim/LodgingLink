@@ -5,6 +5,7 @@ const insertUser = 'insert into "User"("UserID","Password","Role") values($1, $2
 const deleteUser = 'delete from "User" where "UserID" = $1';
 const updatePassword = 'update "User" set "Password"=$1, "Status"=$3 where "UserID" = $2';
 const getroomlist = 'select * from room';
+const getroomlistNumber = 'select * from room where "RoomNumber" = $1';
 const get = 'select * from "User"';
 const getcustomerNid = 'select * from "customer" where "NID" = $1';
 const getcustomerPhone = 'select * from "customer" where "PhoneNumber" = $1';
@@ -53,5 +54,6 @@ module.exports = {
       addUser,
       addInventory,
       getInventory,
-      resetPassword
+      resetPassword,
+      getroomlistNumber 
 }

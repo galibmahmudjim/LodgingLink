@@ -184,6 +184,18 @@ const getroomlist = (req, res) => {
             res.status(200).json(results.rows);
       });
 }
+const getroomlistNumber = (req, res) => {
+      const { RoomNumber } = req.body;
+      console.log(RoomNumber);
+      pool.query(queries.getroomlistNumber,[RoomNumber], (error, results) => {
+            if (error) throw error;
+            if (results.rows.length == 0)
+                  res.status(201);
+            else {
+                  res.status(200).json(results.rows[0]);
+            }
+      });
+}
 
 const getUsers = (req, res) => {
       console.log("get");
@@ -399,5 +411,6 @@ module.exports = {
       addusers,
       addInventory,
       getInventory,
-      resetPassword
+      resetPassword,
+      getroomlistNumber
 };

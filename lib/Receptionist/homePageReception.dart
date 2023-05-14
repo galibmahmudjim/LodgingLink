@@ -40,9 +40,20 @@ class _homePageReceptionState extends State<homePageReception> {
                 context: context,
               ),
             ),
-            body: Stack(
+            body: Column(
               children: [
                 cardBar(screenSize),
+                Container(
+                  height: screenSize.height/1.4,
+                  width: screenSize.width/2.3,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/logo/logo.png'),
+                      fit: BoxFit.fill,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                )
               ],
             ),
           );

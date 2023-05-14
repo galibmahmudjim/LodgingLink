@@ -26,6 +26,7 @@ class _RoomReceptionState extends State<RoomReception> {
   late List<DataRow> rows = [];
   late List<DataRow> showrow = [];
 
+  List<Room> datarow = [];
   DateTime startcheckindate = DateTime.now();
 
   DateTime startcheckoutdate = DateTime.now();
@@ -41,7 +42,6 @@ class _RoomReceptionState extends State<RoomReception> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    rowRoomList();
     retrievedata();
   }
 
@@ -180,7 +180,7 @@ class _RoomReceptionState extends State<RoomReception> {
                       ),
                       onSort: (columnIndex, _) => _sort(columnIndex, _)),
                 ],
-                rows: showrow)));
+                rows: rows)));
   }
 
   final List _isHovering = [false, false, false];
@@ -231,11 +231,12 @@ class _RoomReceptionState extends State<RoomReception> {
                 _color.length, const Color.fromARGB(133, 10, 10, 10));
           });
           if (i == 0) {
-            roomlist();
             setState(() {
               _color[i] = Colors.white;
               _istapped[i] = true;
             });
+
+            rowRoomList();
           } else if (i == 1) {
             setState(() {
               _color[i] = Colors.white;
@@ -246,6 +247,7 @@ class _RoomReceptionState extends State<RoomReception> {
             setState(() {
               _color[i] = Colors.white;
               _istapped[i] = true;
+              reserved();
             });
           }
         },
@@ -307,10 +309,16 @@ class _RoomReceptionState extends State<RoomReception> {
     var row = [];
     var response = await Rest.getRoomList();
     var data = jsonDecode(response!.body);
-    List<Room> datarow = [];
     for (var item in data) {
-      datarow.add(Room.fromJson(item));
+      var temp = Room.fromJson(item);
+      if (temp.roomNumber != null) {
+        datarow.add(temp);
+      }
     }
+
+    setState(() {
+      datarow.removeWhere((value) => value.roomNumber == null);
+    });
     setState(() {
       rows = datarow
           .map<DataRow>((item) => DataRow(
@@ -340,11 +348,6 @@ class _RoomReceptionState extends State<RoomReception> {
                 ],
               ))
           .toList();
-      for (var item in rows) {
-        setState(() {
-          showrow.add(item);
-        });
-      }
     });
   }
 
@@ -373,10 +376,11 @@ class _RoomReceptionState extends State<RoomReception> {
   Future<void> availableroom() async {
     List<String> roomList = [];
     DateTime checkInDatetime;
+    List<Room> rooms = [Room()];
 
     DateFormat dateFormat = DateFormat('dd-MM-yyyy');
     setState(() {
-      roomList.clear();
+      rows.clear();
       showrow.clear();
     });
     for (var item in reservations) {
@@ -390,21 +394,48 @@ class _RoomReceptionState extends State<RoomReception> {
         roomList.add(item.roomNumber.toString());
       }
     }
-    print(roomList);
-    for (var item in rows) {
-      setState(() {
-        showrow.add(item);
-      });
-    }
     setState(() {
-      showrow.removeWhere((element) =>
-          roomList.contains(element.cells.elementAt(0).child.toString()));
+      datarow.removeWhere((value) => value.roomNumber == null);
     });
-  }
+    for (var item in datarow) {
+      if (!roomList.contains(item.roomNumber.toString()) &&
+          item.roomNumber != null) {
+        rooms.add(item);
+      }
+    }
 
-  void roomlist() {
     setState(() {
-      showrow = rows;
+      rooms.removeWhere((value) => value.roomNumber == null);
+    });
+    setState(() {
+      rows = rooms
+          .map<DataRow>((item) => DataRow(
+                cells: [
+                  DataCell(Text(item.roomNumber.toString()), onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => receptionistMakeReservation(
+                                user: widget.user, room: item)));
+                  }),
+                  DataCell(Text(item.roomType.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomClass.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomOccupancey.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomRate.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomAvailablity.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                ],
+              ))
+          .toList();
     });
   }
 
@@ -501,5 +532,71 @@ class _RoomReceptionState extends State<RoomReception> {
         ),
       ),
     );
+  }
+
+  void reserved() {
+    List<String> roomList = [];
+    DateTime checkInDatetime;
+    List<Room> rooms = [Room()];
+
+    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+    setState(() {
+      rows.clear();
+      showrow.clear();
+    });
+    for (var item in reservations) {
+      DateTime d1 = dateFormat.parse(item.checkInDate.toString());
+      DateTime d2 = dateFormat.parse(item.checkOutDate.toString());
+      String str1 = DateFormat("dd-MM-yyyy").format(startcheckindate);
+      String str2 = DateFormat("dd-MM-yyyy").format(startcheckoutdate);
+      DateTime s1 = dateFormat.parse(str1.toString());
+      DateTime s2 = dateFormat.parse(str2.toString());
+      if (!(d1.isAfter(s2) || d2.isBefore(s1))) {
+        roomList.add(item.roomNumber.toString());
+      }
+    }
+    setState(() {
+      datarow.removeWhere((value) => value.roomNumber == null);
+    });
+    for (var item in datarow) {
+      if (roomList.contains(item.roomNumber.toString()) &&
+          item.roomNumber != null) {
+        rooms.add(item);
+      }
+    }
+
+    setState(() {
+      rooms.removeWhere((value) => value.roomNumber == null);
+    });
+    setState(() {
+      rows = rooms
+          .map<DataRow>((item) => DataRow(
+                cells: [
+                  DataCell(Text(item.roomNumber.toString()), onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => receptionistMakeReservation(
+                                user: widget.user, room: item)));
+                  }),
+                  DataCell(Text(item.roomType.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomClass.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomOccupancey.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomRate.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                  DataCell(Text(item.roomAvailablity.toString()), onTap: () {
+                    print(item.roomNumber);
+                  }),
+                ],
+              ))
+          .toList();
+    });
   }
 }
