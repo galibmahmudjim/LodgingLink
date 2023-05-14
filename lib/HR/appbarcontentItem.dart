@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lodginglink/HR/employeeList.dart';
+import 'package:lodginglink/HR/finance.dart';
 import 'package:lodginglink/HR/inventorylist.dart';
-import 'package:lodginglink/Receptionist/CustomerList.dart';
-import 'package:lodginglink/Receptionist/ReservationList.dart';
-import 'package:lodginglink/Receptionist/roomReception.dart';
 
 import '../Profile/User.dart';
 
@@ -27,7 +25,7 @@ class _appbarcontentHRState extends State<appbarcontentHR> {
   final List _isHovering = [false, false, false, false];
   List<Widget> rowElements = [];
 
-  List<String> items = ['Employee', 'Inventory', 'Reset Password'];
+  List<String> items = ['Employee', 'Inventory', 'Finance'];
   List<IconData> icons = [
     Icons.location_on,
     Icons.date_range,
@@ -65,16 +63,16 @@ class _appbarcontentHRState extends State<appbarcontentHR> {
             Navigator.push(
                 widget.context,
                 MaterialPageRoute(
-                    builder: (context) => CustomerList(
+                    builder: (context) => finace(
                           user: widget.user,
                         )));
-          // } else if (i == 3) {
-          //   Navigator.push(
-          //       widget.context,
-          //       MaterialPageRoute(
-          //           builder: (context) => History(
-          //                 user: widget.user,
-          //               )));
+            // } else if (i == 3) {
+            //   Navigator.push(
+            //       widget.context,
+            //       MaterialPageRoute(
+            //           builder: (context) => History(
+            //                 user: widget.user,
+            //               )));
           }
         },
         child: Text(

@@ -128,7 +128,16 @@ class _employeeDetailsState extends State<employeeDetails> {
                     const SizedBox(
                       height: 10,
                     ),
-                    submitButton(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        submitButton(),
+                        const SizedBox(
+                          width: 100,
+                        ),
+                        ResetPassword()
+                      ],
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -918,5 +927,55 @@ class _employeeDetailsState extends State<employeeDetails> {
       salaryController.text = employee.salary.toString();
       emailContoller.text = employee.email.toString();
     });
+  }
+
+  ResetPassword() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blueGrey,
+        textStyle: const TextStyle(
+            color: Colors.white, fontSize: 25, fontStyle: FontStyle.normal),
+      ),
+      onPressed: () {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Reset Password!'),
+                  content: const Text('Are you sure?'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () async =>
+                          {Navigator.pop(context, 'OK'), updated()},
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      },
+      child: const Text('Reset Password'),
+    );
+  }
+
+  updated() async {
+    var body = {"UserID": widget.id};
+
+    Response? response = await Rest.passwordreset(body);
+    if (response!.statusCode == 200) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  employeeDetails(user: widget.user, id: widget.id)));
+      Fluttertoast.showToast(
+        msg: "Reset Password",
+        gravity: ToastGravity.TOP,
+        fontSize: 40,
+        webPosition: "center",
+        webBgColor: "linear-gradient(to right, #ABB900, #ABB900)",
+      );
+    }
   }
 }

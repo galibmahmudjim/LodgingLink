@@ -29,6 +29,9 @@ router.post("/getemployee", controller.getemployee);
 router.post("/getemployeeID", controller.getemployeeID);
 router.post("/updateemployee", controller.updateemployee);
 router.post("/addusers", controller.addusers);
+router.post("/addinventory", controller.addInventory);
+router.post("/getinventory", controller.getInventory);
+router.post("/passwordreset", controller.resetPassword);
 
 
 module.exports = router;

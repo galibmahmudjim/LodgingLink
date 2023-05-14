@@ -22,6 +22,9 @@ const getemployee = 'select * from employee';
 const getemployeeID = 'select * from employee where "EmployeeID" = $1';
 const updateemployee = 'update "employee" set "CurrentStatus"=$1 where "EmployeeID" = $2';
 const addUser = 'INSERT INTO "User" ("UserID", "Password", "Role", "Status") VALUES ($1, $2, $3, $4)';
+const addInventory = 'INSERT INTO inventory ("Name", "Details", "Cost", "Timestamps") VALUES ($1, $2, $3, $4)';
+const getInventory = 'select * from inventory';
+const resetPassword = 'update "User" set "Password"=$1, "Status"=$2 where "UserID" = $3';
 
 module.exports = {
       getUser,
@@ -47,5 +50,8 @@ module.exports = {
       getemployee,
       getemployeeID,
       updateemployee,
-      addUser
+      addUser,
+      addInventory,
+      getInventory,
+      resetPassword
 }

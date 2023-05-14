@@ -224,7 +224,11 @@ class _inventorylistState extends State<inventorylist> {
   }
 
   retrievedata() async {
-   
+    Response? data = await Rest.getInventory();
+    List da = jsonDecode(data!.body);
+    for (var item in da) {
+      inventorylist.add(Inventory.fromJson(item));
+    }
     inventorydata();
   }
 

@@ -24,10 +24,7 @@ const loginAuth = (req, res) => {
             'UserID': UserID,
             'Password': Password
       };
-
       console.log("Login Auth: " + UserID + " " + Password);
-      
-
       pool.query(queries.checkEmail, [UserID], (error, results) => {
             if (results.rows.length) {
                   pool.query(queries.getPassword, [UserID], (error, results) => {
@@ -71,6 +68,33 @@ const addUser = (req,res)=>{
                         res.status(201).send('User inserted');
                   });
             }
+      });
+      
+}
+
+const addInventory = (req,res)=>{
+      const {Name, Details, Cost, Timestamps} =  req.body;
+      pool.query(queries.addInventory, [Name, Details, Cost, Timestamps], (error, results) => {
+            if (error) throw error;
+            res.status(200).send('User inserted');
+      });
+      
+}
+
+
+const resetPassword = (req,res)=>{
+      const {UserID} =  req.body;
+      pool.query(queries.resetPassword, ["12345678","pass_init",UserID], (error, results) => {
+            if (error) throw error;
+            res.status(200).send('Pass reset');
+      });
+      
+}
+
+const getInventory = (req,res)=>{
+      pool.query(queries.getInventory, (error, results) => {
+            if (error) throw error;
+            res.status(200).json(results.rows);
       });
       
 }
@@ -372,5 +396,8 @@ module.exports = {
       getemployee,
       getemployeeID,
       updateemployee,
-      addusers
+      addusers,
+      addInventory,
+      getInventory,
+      resetPassword
 };
