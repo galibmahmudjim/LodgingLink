@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Rest {
-  static String ip = "192.168.0.103";
+  static String ip = "localhost";
   static Future<http.Response>? getUsers(String? UserID) async {
     final url = Uri.parse('http://$ip:6969/getuser');
     final headers = {
@@ -257,7 +257,8 @@ class Rest {
         await http.post(url, headers: headers, body: jsonEncode(body));
     return response;
   }
-    static Future<http.Response>? updateemployee(var body) async {
+
+  static Future<http.Response>? updateemployee(var body) async {
     final url = Uri.parse('http://$ip:6969/updateemployee');
     final headers = {
       "Access-Control-Allow-Origin": "*",
@@ -270,7 +271,8 @@ class Rest {
         await http.post(url, headers: headers, body: jsonEncode(body));
     return response;
   }
-     static Future<http.Response>? addusers(var body) async {
+
+  static Future<http.Response>? addusers(var body) async {
     final url = Uri.parse('http://$ip:6969/addusers');
     final headers = {
       "Access-Control-Allow-Origin": "*",
@@ -283,5 +285,4 @@ class Rest {
         await http.post(url, headers: headers, body: jsonEncode(body));
     return response;
   }
-  
 }
