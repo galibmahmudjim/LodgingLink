@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lodginglink/HR/AboutUS.dart';
 import 'package:lodginglink/HR/HRHome.dart';
 import 'package:lodginglink/Utils/sharedPref.dart';
 import 'package:lodginglink/widget/loading.dart';
@@ -72,7 +73,12 @@ class _topBarState extends State<topBar> {
 
   contactUs() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AboutUS(user: widget.user)));
+      },
       onHover: (value) {
         setState(() {
           _isHovering[1] = value;
@@ -131,7 +137,10 @@ class _topBarState extends State<topBar> {
                   Navigator.pushReplacement(widget.context,
                       MaterialPageRoute(builder: (context) => const loading())),
                   sharedPref.deleteToken(),
-                    Navigator.pushReplacement(widget.context, MaterialPageRoute(builder: (context) => HomePage())),
+                  Navigator.pushReplacement(
+                      widget.context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomePage())),
                 },
                 child: const Text('OK'),
               ),

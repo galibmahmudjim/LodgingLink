@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lodginglink/HR/topBar.dart';
 import 'package:lodginglink/Profile/User.dart';
-import 'package:lodginglink/Receptionist/appbarcontentItem.dart';
-import 'package:lodginglink/Receptionist/topBar.dart';
 import 'package:lodginglink/widget/loading.dart';
 
 import 'appbarcontentItem.dart';
