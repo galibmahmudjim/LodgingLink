@@ -1485,7 +1485,8 @@ class _receptionistMakeReservationState
               ),
               SizedBox(
                 width: screenSize.width / 4,
-                height: 50, child: DropdownButton(
+                height: 50,
+                child: DropdownButton(
                   focusColor: Colors.white,
                   value: paymentmethoditem,
                   items: items.map((String items) {
@@ -2891,7 +2892,23 @@ class _receptionistMakeReservationState
         reservationStatus: ReservationStatus);
     Response? response = await Rest.addCustomer(customer.toJson());
     Response? response1 = await Rest.addReservation(reservation.toJson());
+    var msg = 'Dear ' +
+        customer.name.toString() +
+        "\nReservation Complete\n+Room no:" +
+        reservation.roomNumber.toString() +
+        "\nReservation ID: " +
+        reservation.reservationID.toString() +
+        "\nCheck-In Date: " +
+        reservation.checkInDate.toString() +
+        "\n-LodgingLink\nThank you....";
     if (response!.statusCode == 200 && response1!.statusCode == 200) {
+      var sms = {
+        'api_key': 'AXzd054su9N208p2mas73Hv0FH53jeG8sfeAt44k',
+        'msg': msg,
+        'to': customer.phoneNumber.toString()
+      };
+      Response? response = await Rest.sendsms(sms);
+      print(response!.body);
       Fluttertoast.showToast(
         msg: "Reservation Complete",
         gravity: ToastGravity.TOP,

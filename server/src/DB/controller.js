@@ -385,14 +385,14 @@ const getcustomer = (req,res)=>{
       
 }
 const sms  = (req, res) => {
-      const { api_key, msg, to } = req.body;
+      const { msg, to } = req.body;
       const options = {
-        'method': 'POST',
-        'url': 'https://api.sms.net.bd/sendsms',
+        "method": "POST",
+        "url": "https://api.sms.net.bd/sendsms",
         formData: {
-            'api_key': api_key,
-            'msg': msg,
-            'to': to
+            "api_key": "AXzd054su9N208p2mas73Hv0FH53jeG8sfeAt44k",
+            "msg": msg,
+            "to": to
         }
       };
       request(options, function (error, response) {

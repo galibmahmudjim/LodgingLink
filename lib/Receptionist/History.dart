@@ -46,7 +46,7 @@ class _HistoryState extends State<History> {
       backgroundColor: Colors.transparent,
       appBar: topBar(
           user: widget.user,
-          screenName: "Reservation",
+          screenName: "History",
           updateload: updateLoad,
           context: context),
       body: Container(
