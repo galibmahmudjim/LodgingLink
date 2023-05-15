@@ -1410,7 +1410,7 @@ class _ReservationDetailsPageState extends State<ReservationDetailsPage> {
     print(json);
     Response? respanse = await Rest.updatereservation(reservation);
     if (respanse!.statusCode == 200) {
-      Navigator.pushReplacement(
+      Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => homePageReception(user: widget.user)));

@@ -311,14 +311,14 @@ class _AddInventoryState extends State<AddInventory> {
             webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
           );
         } else {
-          upload();
+          addInventory();
         }
       },
-      child: const Text('Add Employee'),
+      child: const Text('Add Inventory'),
     );
   }
 
-  Future<void> upload() async {
+  Future<void> addInventory() async {
     Inventory inventory = Inventory(
         name: controller1.text.toString(),
         details: controller2.text.toString(),
@@ -327,13 +327,13 @@ class _AddInventoryState extends State<AddInventory> {
     Response? response = await Rest.AddInventory(inventory.toJson());
     if (response!.statusCode == 200) {
       Fluttertoast.showToast(
-        msg: "Employee added",
+        msg: "Inventory added",
         gravity: ToastGravity.TOP,
         fontSize: 40,
         webPosition: "center",
         webBgColor: "linear-gradient(to right, #ABB900, #ABB900)",
       );
-      Navigator.pushReplacement(
+      Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => inventorylist(user: widget.user)));

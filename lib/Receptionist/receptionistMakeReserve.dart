@@ -394,7 +394,7 @@ class _receptionistMakeReservationState
                   .toString();
         }
       } else if (_currentStep == 3) {
-        submit();
+        AddReservation();
       }
     });
   }
@@ -2860,7 +2860,7 @@ class _receptionistMakeReservationState
     );
   }
 
-  submit() async {
+  Future<void> AddReservation() async {
     setState(() {
       isLoading = true;
     });

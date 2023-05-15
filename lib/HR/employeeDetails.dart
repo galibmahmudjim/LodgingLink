@@ -964,7 +964,7 @@ class _employeeDetailsState extends State<employeeDetails> {
 
     Response? response = await Rest.passwordreset(body);
     if (response!.statusCode == 200) {
-      Navigator.pushReplacement(
+      Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) =>

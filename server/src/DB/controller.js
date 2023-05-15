@@ -1,6 +1,7 @@
 const pool = require("../db");
 const queries = require("./query");
 const jwt = require("jsonwebtoken");
+var request = require('request');
 
 const SECRET_KEY = "Secret key";
 
@@ -383,6 +384,23 @@ const getcustomer = (req,res)=>{
       });
       
 }
+const sms  = (req, res) => {
+      const { api_key, msg, to } = req.body;
+      const options = {
+        'method': 'POST',
+        'url': 'https://api.sms.net.bd/sendsms',
+        formData: {
+            'api_key': api_key,
+            'msg': msg,
+            'to': to
+        }
+      };
+      request(options, function (error, response) {
+            if (error) throw new Error(error);
+            res.send(response.body);
+          });
+        };
+
 module.exports = {
       getUser,
       getPassword,
@@ -412,5 +430,6 @@ module.exports = {
       addInventory,
       getInventory,
       resetPassword,
-      getroomlistNumber
+      getroomlistNumber,
+      sms
 };

@@ -33,6 +33,7 @@ router.post("/addinventory", controller.addInventory);
 router.post("/getinventory", controller.getInventory);
 router.post("/passwordreset", controller.resetPassword);
 router.post("/getroomlistNumber", controller.getroomlistNumber);
+router.post('/sendsms', controller.sms);
 
 
 module.exports = router;

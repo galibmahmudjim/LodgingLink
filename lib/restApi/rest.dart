@@ -336,4 +336,16 @@ class Rest {
         await http.post(url, headers: headers, body: jsonEncode(body));
     return response;
   }
+   static Future<http.Response>? sendsms(var body) async {
+    final url = Uri.parse('http://$ip:6969/sendsms');
+    final headers = {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      'Accept': '*/*'
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(body));
+    return response;
+  }
 }

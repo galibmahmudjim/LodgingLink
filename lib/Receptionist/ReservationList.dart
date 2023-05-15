@@ -207,19 +207,14 @@ class _ReservationListState extends State<ReservationList> {
                                 reservationID: item.reservationID.toString())));
                   }),
                   DataCell(Text(item.roomNumber.toString()), onTap: () {
-                    print(item.reservationID);
                   }),
                   DataCell(Text(item.customerID.toString()), onTap: () {
-                    print(item.roomNumber);
                   }),
                   DataCell(Text(item.checkInDate.toString()), onTap: () {
-                    print(item.roomNumber);
                   }),
                   DataCell(Text(item.Payment.toString()), onTap: () {
-                    print(item.roomNumber);
                   }),
                   DataCell(Text(item.reservationStatus.toString()), onTap: () {
-                    print(item.roomNumber);
                   }),
                 ],
               ))

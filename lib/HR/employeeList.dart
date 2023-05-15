@@ -49,7 +49,7 @@ class _employeeListState extends State<employeeList> {
       backgroundColor: Colors.transparent,
       appBar: topBar(
           user: widget.user,
-          screenName: "Reservation",
+          screenName: "Employee",
           updateload: updateLoad,
           context: context),
       body: Container(
@@ -222,7 +222,7 @@ class _employeeListState extends State<employeeList> {
           .map<DataRow>((item) => DataRow(
                 cells: [
                   DataCell(Text(item.employeeID.toString()), onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => employeeDetails(

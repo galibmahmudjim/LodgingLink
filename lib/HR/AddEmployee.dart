@@ -934,14 +934,14 @@ class _AddEmployeeState extends State<AddEmployee> {
             webBgColor: "linear-gradient(to right, #BB4400, #BB4400)",
           );
         } else {
-          upload();
+          addEmployee();
         }
       },
       child: const Text('Add Employee'),
     );
   }
 
-  Future<void> upload() async {
+  Future<void> addEmployee() async {
     Employee employe = Employee(
         employeeID: employeeIDController.text.toString(),
         name: nameController.text.toString(),
@@ -972,7 +972,7 @@ class _AddEmployeeState extends State<AddEmployee> {
         webPosition: "center",
         webBgColor: "linear-gradient(to right, #ABB900, #ABB900)",
       );
-      Navigator.pushReplacement(
+      Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => employeeList(user: widget.user)));
